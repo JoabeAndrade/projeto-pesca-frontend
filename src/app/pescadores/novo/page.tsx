@@ -2,7 +2,8 @@
 
 import Button from "@/components/Button";
 import Header from "@/components/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Municipio } from "@/types/pescadores/municipio";
 
 type Option = {
   label: string;
@@ -10,26 +11,37 @@ type Option = {
 };
 
 const optionSexo: Option[] = [
-  { label: "Masculino", value: "Masculino" },
-  { label: "Feminino", value: "Feminino" },
+  { label: "Masculino", value: "m" },
+  { label: "Feminino", value: "f" },
 ];
 
-const optionCidades: Option[] = [
-  { label: "Itabuna BA", value: "Itabuna" },
-  { label: "Ilhéus BA", value: "Ilhéus" },
-  { label: "Porto Seguro BA", value: "Porto Seguro" },
-];
+const getMunicipios = async(): Promise<Municipio[]> => {
+  const municipios = await fetch('http://localhost:8000/municipios/');
+  const jsonMunicipios = await municipios.json();
+  return jsonMunicipios;
+}
 
 export default function Page() {
   const [sexoSelecionado, setSexoSelecionado] = useState("");
   const [naturalidadeSelecionado, setNaturalidadeSelecionado] = useState("");
+  const [municipios, setMunicipios] = useState<Municipio[]>([]);
+
+  useEffect(() => {
+    getMunicipios().then((response) => setMunicipios(response));
+  }, []);
 
   async function createPescador(formData: FormData) {
     const data = {
       nome: formData.get('nome'),
+      sexo: formData.get('sexo'),
+      matricula_colonia: formData.get('matricula'),
       apelido: formData.get('apelido'),
       nome_pai: formData.get('nome_pai'),
-      nome_mae: formData.get('nome_mae')
+      nome_mae: formData.get('nome_mae'),
+      rg: formData.get('rg'),
+      cpf: formData.get('cpf'),
+      data_nascimento: formData.get('data_nascimento'),
+      naturalidade: formData.get('naturalidade'),
     }
 
     const response = await fetch('http://localhost:8000/pescadores/', {
@@ -133,12 +145,12 @@ export default function Page() {
             />
           </div>
           <div className="flex flex-col">
-            <label htmlFor="data">Data de Nascimento</label>
+            <label htmlFor="data_nascimento">Data de Nascimento</label>
             <input
               type="date"
               className="p-2 border-2 border-[#6d4c41] rounded"
-              id="data"
-              name="data"
+              id="data_nascimento"
+              name="data_nascimento"
             />
           </div>
           <div className="flex flex-col">
@@ -151,9 +163,9 @@ export default function Page() {
               className="p-2 border-2 border-[#6d4c41] rounded"
             >
               <option value="">Selecione</option>
-              {optionCidades.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
+              {municipios.map((municipio) => (
+                <option key={municipio.id} value={municipio.id}>
+                  {municipio.nome} - {municipio.uf}
                 </option>
               ))}
             </select>
