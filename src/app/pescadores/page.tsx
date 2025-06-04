@@ -1,33 +1,42 @@
 import Button from "@/components/Button";
 import Header from "@/components/Header";
 import { Plus } from "lucide-react";
-import { PescadorData } from "@/types/pescadores/pescador_data";
+import Link from "next/link";
+import ListItemPescadores from "@/components/ListItemPescadores";
+import ListHeaderPescadores from "@/components/ListHeaderPescadores";
 
 export default async function Page() {
-  const data = await fetch('http://localhost:8000/pescadores/');
-  const pescadores = await data.json();
+  // const data = await fetch("http://localhost:8000/pescadores/");
+  // const pescadores = await data.json();
 
   return (
     <div>
       <Header />
       <div className="flex flex-row w-full h-14 justify-between items-center px-8 my-4">
         <h1 className="text-black text-4xl">Perfil Social / Pescador</h1>
-        <Button icon={Plus}>NOVO</Button>
+        <Link href="pescadores/novo">
+          <Button icon={Plus}>NOVO</Button>
+        </Link>
       </div>
 
-      <div>
-        <h1>Pescadores</h1>
-        {pescadores.map((pescador: PescadorData) => (
-          <div key={pescador.id}>
-            <h2>{pescador.nome}</h2>
-            <ul>
-              <li>{pescador.apelido}</li>
-              <li>{pescador.nome_pai}</li>
-              <li>{pescador.nome_mae}</li>
-            </ul>
-            <br />
-          </div>
-        ))}
+      <div className="px-8 w-full mx-auto">
+        <ListHeaderPescadores />
+        <ListItemPescadores
+          id={1}
+          nome="Joabe"
+          falecido="Não"
+          pontoEmbarque="Ilhéus"
+          projetoCadastrado="Cadastrado"
+          apelido="Joabe"
+        />
+        <ListItemPescadores
+          id={2}
+          nome="Sara"
+          falecido="Não"
+          pontoEmbarque="Ilhéus"
+          projetoCadastrado="Cadastrado"
+          apelido="Joabe"
+        />
       </div>
     </div>
   );
