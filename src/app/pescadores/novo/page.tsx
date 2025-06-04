@@ -24,6 +24,26 @@ export default function Page() {
   const [sexoSelecionado, setSexoSelecionado] = useState("");
   const [naturalidadeSelecionado, setNaturalidadeSelecionado] = useState("");
 
+  async function createPescador(formData: FormData) {
+    const data = {
+      nome: formData.get('nome'),
+      apelido: formData.get('apelido'),
+      nome_pai: formData.get('nome_pai'),
+      nome_mae: formData.get('nome_mae')
+    }
+
+    const response = await fetch('http://localhost:8000/pescadores/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+    console.log(result);
+  }
+
   return (
     <div>
       <Header />
@@ -31,7 +51,7 @@ export default function Page() {
         <h1 className="text-black text-4xl">Perfil Social / Pescador</h1>
       </div>
       <div className="flex w-full h-screen justify-center items-center">
-        <form className="w-2xl">
+        <form className="w-2xl" action={createPescador}>
           <div className="flex flex-col">
             <label htmlFor="nome">Nome</label>
             <input
