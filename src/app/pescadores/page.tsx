@@ -5,9 +5,18 @@ import Link from "next/link";
 import ListItemPescadores from "@/components/ListItemPescadores";
 import ListHeaderPescadores from "@/components/ListHeaderPescadores";
 
+type PescadorType = {
+  id: number;
+  nome: string;
+  falecido: string;
+  pontoEmbarque: string;
+  projetoCadastrado: string;
+  apelido: string;
+}
+
 export default async function Page() {
-  // const data = await fetch("http://localhost:8000/pescadores/");
-  // const pescadores = await data.json();
+  const data = await fetch("http://localhost:8000/pescadores/");
+  const pescadores = await data.json();
 
   return (
     <div>
@@ -21,22 +30,17 @@ export default async function Page() {
 
       <div className="px-8 w-full mx-auto">
         <ListHeaderPescadores />
-        <ListItemPescadores
-          id={1}
-          nome="Joabe"
-          falecido="Não"
-          pontoEmbarque="Ilhéus"
-          projetoCadastrado="Cadastrado"
-          apelido="Joabe"
-        />
-        <ListItemPescadores
-          id={2}
-          nome="Sara"
-          falecido="Não"
-          pontoEmbarque="Ilhéus"
-          projetoCadastrado="Cadastrado"
-          apelido="Joabe"
-        />
+        {pescadores.map((pescador: PescadorType) => (
+          <ListItemPescadores
+            key={pescador.id}
+            id={pescador.id}
+            nome={pescador.nome}
+            falecido={pescador.falecido ? "Sim" : "Não"}
+            pontoEmbarque=""
+            projetoCadastrado=""
+            apelido={pescador.apelido}
+          />
+        ))}
       </div>
     </div>
   );
