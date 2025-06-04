@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X } from "lucide-react"; // ícones do Lucide (ou qualquer outro)
+import { Menu, X } from "lucide-react";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
