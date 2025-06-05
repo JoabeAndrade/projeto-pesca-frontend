@@ -1,6 +1,6 @@
 export default function ListHeaderPescadores() {
   return (
-    <div className="flex flex-row h-20 items-center">
+    <div className="flex flex-row h-20 items-center border-t border-b border-gray-300">
       <div className="flex-1">
         <h1 className="font-bold">id</h1>
       </div>
@@ -19,7 +19,9 @@ export default function ListHeaderPescadores() {
       <div className="flex-1">
         <h1 className="font-bold">Projeto Cadastrado</h1>
       </div>
-      <div className="w-8" />
+      <div className="w-24 flex items-center justify-center">
+        <h1 className="font-bold">Ações</h1>
+      </div>
     </div>
   );
 }
