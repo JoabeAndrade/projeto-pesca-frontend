@@ -4,7 +4,7 @@
 import Button from "@/components/Button";
 import Header from "@/components/Header";
 import { useEffect, useState } from "react";
-import { Municipio } from "@/types/pescadores/municipio";
+import { MunicipioData } from "@/types/pescadores/municipio";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -19,7 +19,7 @@ const optionSexo: Option[] = [
   { label: "Feminino", value: "f" },
 ];
 
-const getMunicipios = async (): Promise<Municipio[]> => {
+const getMunicipios = async (): Promise<MunicipioData[]> => {
   const municipios = await fetch("http://localhost:8000/municipios/");
   const jsonMunicipios = await municipios.json();
   return jsonMunicipios;
@@ -28,7 +28,7 @@ const getMunicipios = async (): Promise<Municipio[]> => {
 export default function Page() {
   const [sexoSelecionado, setSexoSelecionado] = useState("");
   const [naturalidadeSelecionado, setNaturalidadeSelecionado] = useState("");
-  const [municipios, setMunicipios] = useState<Municipio[]>([]);
+  const [municipios, setMunicipios] = useState<MunicipioData[]>([]);
   const router = useRouter();
 
   useEffect(() => {

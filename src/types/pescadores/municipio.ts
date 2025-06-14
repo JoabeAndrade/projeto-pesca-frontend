@@ -1,4 +1,4 @@
-export type Municipio = {
+export type MunicipioData = {
   id: number,
   nome: string,
   uf: string,
