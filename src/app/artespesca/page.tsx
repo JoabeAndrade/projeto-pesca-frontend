@@ -1,28 +1,50 @@
+import Header from "@/components/Header";
+import HeaderTitle from "@/components/HeaderTitle";
+import ListItemButtonSet from "@/components/ListItemButtonSet";
 import { ArtePescaData } from "@/types/pescadores/arte-pesca";
 
 export default async function Page() {
   const data = await fetch('http://localhost:8000/artespesca');
-  const associacoes = await data.json();
+  const artesPesca = await data.json();
 
   return (
     <div>
-      <h1>Artes de Pesca</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Nome</th>
-          </tr>
-        </thead>
-        <tbody>
-          {associacoes.map((artePesca: ArtePescaData, index: number) => (
-            <tr key={index}>
-              <td>{artePesca.id}</td>
-              <td>{artePesca.nome}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {/* O Header tem que ficar no layout */}
+      <Header />
+      <HeaderTitle title='Perfil Social / Artes de Pesca' urlNovo='artespesca/novo'/>
+
+      {/* Lista */}
+      <div className="px-8 w-full mx-auto">
+        {/* Header da lista */}
+        <div className="flex flex-row h-20 items-center border-t border-b border-gray-300">
+          <div className="flex-1">
+            <h1 className="font-bold">Id</h1>
+          </div>
+          <div className="flex-1">
+            <h1 className="font-bold">Nome</h1>
+          </div>
+          <div className="w-24 flex items-center justify-center">
+            <h1 className="font-bold">Ações</h1>
+          </div>
+        </div>
+
+        {/* Itens da lista */}
+        {artesPesca.map((artePesca: ArtePescaData, index: number) => (
+          <div className="flex flex-row h-20 items-center border-t border-gray-300" key={index}>
+            <div className="flex-1">
+              <h1>{artePesca.id}</h1>
+            </div>
+            <div className="flex-1">
+              <h1>{artePesca.nome}</h1>
+            </div>
+            <ListItemButtonSet
+              urlDelete={`http://localhost:8000/artespesca/${artePesca.id}`}
+              urlEdit={`http://localhost:3000/artespesca/${artePesca.id}/editar`}
+              itemName={artePesca.nome}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

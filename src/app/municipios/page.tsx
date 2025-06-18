@@ -18,7 +18,7 @@ export default async function Page() {
         {/* Header da lista */}
         <div className="flex flex-row h-20 items-center border-t border-b border-gray-300">
           <div className="flex-1">
-            <h1 className="font-bold">id</h1>
+            <h1 className="font-bold">Id</h1>
           </div>
           <div className="flex-1">
             <h1 className="font-bold">Nome</h1>
@@ -46,7 +46,8 @@ export default async function Page() {
             <ListItemButtonSet
               urlDelete={`http://localhost:8000/municipios/${municipio.id}`}
               urlEdit={`http://localhost:3000/municipios/${municipio.id}/editar`}
-              itemName={municipio.nome}/>
+              itemName={municipio.nome}
+            />
           </div>
         ))}
       </div>
