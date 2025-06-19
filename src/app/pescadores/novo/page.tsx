@@ -83,135 +83,175 @@ export default function Page() {
     <div>
       <Header />
       <ToastContainer />
-      <div className="flex flex-row w-full h-14 justify-between items-center px-8 my-4">
-        <h1 className="text-black text-4xl">Perfil Social / Pescador</h1>
-      </div>
-      <div className="flex w-full h-screen justify-center items-center">
-        <form
-          className="w-2xl"
-          onSubmit={(e) => {
-            e.preventDefault();
-            const form = e.currentTarget;
-            const formData = new FormData(form);
-            createPescador(formData);
-          }}
-        >
-          <div className="flex flex-col">
-            <label htmlFor="nome">Nome</label>
-            <input
-              type="text"
-              className="p-2 border-2 border-[#6d4c41] rounded"
-              id="nome"
-              name="nome"
-              required
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="sexo">Sexo</label>
-            <select
-              name="sexo"
-              id="sexo"
-              value={sexoSelecionado}
-              onChange={(e) => setSexoSelecionado(e.target.value)}
-              className="p-2 border-2 border-[#6d4c41] rounded"
-              required
-            >
-              <option value="">Selecione</option>
-              {optionSexo.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="matricula">Matrícula</label>
-            <input
-              type="number"
-              className="p-2 border-2 border-[#6d4c41] rounded"
-              id="matricula"
-              name="matricula"
-              required
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="apelido">Apelido</label>
-            <input
-              type="text"
-              className="p-2 border-2 border-[#6d4c41] rounded"
-              id="apelido"
-              name="apelido"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="nome_pai">Nome do Pai</label>
-            <input
-              type="text"
-              className="p-2 border-2 border-[#6d4c41] rounded"
-              id="nome_pai"
-              name="nome_pai"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="nome_mae">Nome da Mãe</label>
-            <input
-              type="text"
-              className="p-2 border-2 border-[#6d4c41] rounded"
-              id="nome_mae"
-              name="nome_mae"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="rg">RG</label>
-            <input
-              type="text"
-              className="p-2 border-2 border-[#6d4c41] rounded"
-              id="rg"
-              name="rg"
-              placeholder="Apenas números"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="cpf">CPF</label>
-            <input
-              type="text"
-              className="p-2 border-2 border-[#6d4c41] rounded"
-              id="cpf"
-              name="cpf"
-              placeholder="Apenas números"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="data_nascimento">Data de Nascimento</label>
-            <input
-              type="date"
-              className="p-2 border-2 border-[#6d4c41] rounded"
-              id="data_nascimento"
-              name="data_nascimento"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="naturalidade">Naturalidade</label>
-            <select
-              name="naturalidade"
-              id="naturalidade"
-              value={naturalidadeSelecionado}
-              onChange={(e) => setNaturalidadeSelecionado(e.target.value)}
-              className="p-2 border-2 border-[#6d4c41] rounded"
-              required
-            >
-              <option value="">Selecione</option>
-              {municipios.map((municipio) => (
-                <option key={municipio.id} value={municipio.id}>
-                  {municipio.nome} - {municipio.uf}
-                </option>
-              ))}
-            </select>
-          </div>
-          <Button type="submit" className="w-full my-6">
-            SALVAR E CONTINUAR
-          </Button>
-        </form>
+      <div className="px-8 my-6">
+        <h1 className="text-4xl font-semibold text-black mb-6">
+          Perfil Social / Pescador
+        </h1>
+
+        <div className="w-full flex justify-center">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const form = e.currentTarget;
+              const formData = new FormData(form);
+              createPescador(formData);
+            }}
+            className="bg-white shadow p-8 rounded w-full max-w-4xl space-y-8"
+          >
+            {/* Seção: Dados Pessoais */}
+            <section>
+              <h2 className="text-xl font-medium text-[#6d4c41] mb-4">
+                Dados Pessoais
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <label htmlFor="nome">Nome</label>
+                  <input
+                    type="text"
+                    id="nome"
+                    name="nome"
+                    required
+                    className="p-2 border-2 border-[#6d4c41] rounded"
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <label htmlFor="sexo">Sexo</label>
+                  <select
+                    name="sexo"
+                    id="sexo"
+                    value={sexoSelecionado}
+                    onChange={(e) => setSexoSelecionado(e.target.value)}
+                    required
+                    className="p-2 border-2 border-[#6d4c41] rounded"
+                  >
+                    <option value="">Selecione</option>
+                    {optionSexo.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="flex flex-col">
+                  <label htmlFor="data_nascimento">Data de Nascimento</label>
+                  <input
+                    type="date"
+                    id="data_nascimento"
+                    name="data_nascimento"
+                    className="p-2 border-2 border-[#6d4c41] rounded"
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <label htmlFor="naturalidade">Naturalidade</label>
+                  <select
+                    name="naturalidade"
+                    id="naturalidade"
+                    value={naturalidadeSelecionado}
+                    onChange={(e) => setNaturalidadeSelecionado(e.target.value)}
+                    required
+                    className="p-2 border-2 border-[#6d4c41] rounded"
+                  >
+                    <option value="">Selecione</option>
+                    {municipios.map((municipio) => (
+                      <option key={municipio.id} value={municipio.id}>
+                        {municipio.nome} - {municipio.uf}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            {/* Seção: Documentos */}
+            <section>
+              <h2 className="text-xl font-medium text-[#6d4c41] mb-4">
+                Documentos
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <label htmlFor="rg">RG</label>
+                  <input
+                    type="text"
+                    id="rg"
+                    name="rg"
+                    placeholder="Apenas números"
+                    className="p-2 border-2 border-[#6d4c41] rounded"
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <label htmlFor="cpf">CPF</label>
+                  <input
+                    type="text"
+                    id="cpf"
+                    name="cpf"
+                    placeholder="Apenas números"
+                    className="p-2 border-2 border-[#6d4c41] rounded"
+                  />
+                </div>
+              </div>
+            </section>
+
+            {/* Seção: Outros */}
+            <section>
+              <h2 className="text-xl font-medium text-[#6d4c41] mb-4">
+                Outras Informações
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <label htmlFor="matricula">Matrícula</label>
+                  <input
+                    type="number"
+                    id="matricula"
+                    name="matricula"
+                    required
+                    className="p-2 border-2 border-[#6d4c41] rounded"
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <label htmlFor="apelido">Apelido</label>
+                  <input
+                    type="text"
+                    id="apelido"
+                    name="apelido"
+                    className="p-2 border-2 border-[#6d4c41] rounded"
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <label htmlFor="nome_pai">Nome do Pai</label>
+                  <input
+                    type="text"
+                    id="nome_pai"
+                    name="nome_pai"
+                    className="p-2 border-2 border-[#6d4c41] rounded"
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <label htmlFor="nome_mae">Nome da Mãe</label>
+                  <input
+                    type="text"
+                    id="nome_mae"
+                    name="nome_mae"
+                    className="p-2 border-2 border-[#6d4c41] rounded"
+                  />
+                </div>
+              </div>
+            </section>
+
+            {/* Botão de envio */}
+            <div>
+              <Button type="submit" className="w-full mt-6">
+                SALVAR E CONTINUAR
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
