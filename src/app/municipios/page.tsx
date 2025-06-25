@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import HeaderTitle from "@/components/HeaderTitle";
 import ListItemButtonSet from "@/components/ListItemButtonSet";
 import { MunicipioData } from "@/types/pescadores/municipio";
@@ -9,8 +8,6 @@ export default async function Page() {
 
   return (
     <div>
-      {/* O Header tem que ficar no layout */}
-      <Header />
       <HeaderTitle title='Perfil Social / Município' urlNovo='municipios/novo'/>
 
       {/* Lista */}

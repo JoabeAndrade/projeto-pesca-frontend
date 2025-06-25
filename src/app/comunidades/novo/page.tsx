@@ -1,14 +1,12 @@
 "use client";
 
 import Button from "@/components/Button";
-import Header from "@/components/Header";
 import "react-toastify/dist/ReactToastify.css";
 import { Save } from "lucide-react";
 
 export default function Page() {
   return (
     <div>
-      <Header />
       <div className="px-8">
         <div className="flex flex-row w-full h-14 justify-between items-center my-6">
           <h1 className="text-black text-4xl">Perfil Social / Comunidade</h1>

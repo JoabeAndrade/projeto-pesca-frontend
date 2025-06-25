@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import ListItemPescadores from "@/components/ListItemPescadores";
 import ListHeaderPescadores from "@/components/ListHeaderPescadores";
 import HeaderTitle from "@/components/HeaderTitle";
@@ -18,7 +17,6 @@ export default async function Page() {
 
   return (
     <div>
-      <Header />
       <HeaderTitle title='Perfil Social / Pescador' urlNovo='pescadores/novo'/>
 
       <div className="px-8 w-full mx-auto">

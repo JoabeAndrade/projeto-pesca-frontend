@@ -2,7 +2,6 @@
 "use client";
 
 import Button from "@/components/Button";
-import Header from "@/components/Header";
 import { useEffect, useState } from "react";
 import { MunicipioData } from "@/types/pescadores/municipio";
 import { useRouter } from "next/navigation";
@@ -81,7 +80,6 @@ export default function Page() {
 
   return (
     <div>
-      <Header />
       <ToastContainer />
       <div className="px-8 my-6">
         <h1 className="text-4xl font-semibold text-black mb-6">

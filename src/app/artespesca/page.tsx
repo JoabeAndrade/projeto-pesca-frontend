@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import HeaderTitle from "@/components/HeaderTitle";
 import ListItemButtonSet from "@/components/ListItemButtonSet";
 import { ArtePescaData } from "@/types/pescadores/arte-pesca";
@@ -9,8 +8,6 @@ export default async function Page() {
 
   return (
     <div>
-      {/* O Header tem que ficar no layout */}
-      <Header />
       <HeaderTitle title='Perfil Social / Artes de Pesca' urlNovo='artespesca/novo'/>
 
       {/* Lista */}

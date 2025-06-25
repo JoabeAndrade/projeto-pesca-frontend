@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import HeaderTitle from "@/components/HeaderTitle";
 import ListItemButtonSet from "@/components/ListItemButtonSet";
 import { ColoniaData } from "@/types/pescadores/colonia";
@@ -9,7 +8,6 @@ export default async function Page() {
 
   return (
     <div>
-      <Header />
       <HeaderTitle title='Perfil Social / Colônia' urlNovo='colonias/novo' />
       <div className="px-8 w-full mx-auto">
         <div className="flex flex-row h-20 items-center border-t border-b border-gray-300">
