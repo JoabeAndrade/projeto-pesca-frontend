@@ -1,7 +1,7 @@
 import React from "react";
 
 type FormContainerProps = {
-  action: (formData: FormData) => Promise<void>;
+  action: (formData: FormData) => Promise<void> | void;
   children: React.ReactNode;
 };
 

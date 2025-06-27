@@ -1,11 +1,14 @@
 import AreaPescaForm from "@/components/AreaPescaForm";
-import HeaderTitle from "@/components/HeaderTitle";
+import PageContainer from "@/components/PageContainer";
+import PageTitle from "@/components/PageTitle";
+import Link from "next/link";
 
 export default async function Page() {
   return (
-    <div>
-      <HeaderTitle title="Inserir Área de Pesca" urlNovo=""/>
+    <PageContainer>
+      <PageTitle title="Inserir Área de Pesca"/>
       <AreaPescaForm />
-    </div>
+      <Link href="/areaspesca">VOLTAR</Link>
+    </PageContainer>
   );
 }

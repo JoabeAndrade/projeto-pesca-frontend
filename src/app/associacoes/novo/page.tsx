@@ -1,11 +1,14 @@
 import AssociacaoForm from "@/components/AssociacaoForm";
-import HeaderTitle from "@/components/HeaderTitle";
+import PageTitle from "@/components/PageTitle";
+import PageContainer from "@/components/PageContainer";
+import Link from "next/link";
 
 export default async function Page() {
   return (
-    <div>
-      <HeaderTitle title="Inserir Associação" urlNovo=""/>
+    <PageContainer>
+      <PageTitle title="Inserir Associação"/>
       <AssociacaoForm />
-    </div>
+      <Link href="/associacoes">VOLTAR</Link>
+    </PageContainer>
   );
 }

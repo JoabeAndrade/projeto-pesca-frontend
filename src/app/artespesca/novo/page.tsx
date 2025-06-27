@@ -1,11 +1,14 @@
 import ArtePescaForm from "@/components/ArtePescaForm";
-import HeaderTitle from "@/components/HeaderTitle";
+import PageContainer from "@/components/PageContainer";
+import PageTitle from "@/components/PageTitle";
+import Link from "next/link";
 
 export default async function Page() {
   return (
-    <div>
-      <HeaderTitle title="Inserir Árte de Pesca" urlNovo=""/>
+    <PageContainer>
+      <PageTitle title="Inserir Árte de Pesca"/>
       <ArtePescaForm />
-    </div>
+      <Link href="/artespesca">VOLTAR</Link>
+    </PageContainer>
   );
 }
