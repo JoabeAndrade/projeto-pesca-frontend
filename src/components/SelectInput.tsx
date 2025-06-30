@@ -6,13 +6,13 @@ type SelectInputProps = {
   placeholder: string;
   required: boolean;
   options: {
-      value: string;
-      text: string;
-    }[]
+    value: string;
+    text: string;
+  }[]
 };
 
-export default function SelectInput( { label, id, placeholder, required, options }: SelectInputProps) {
-  const [selectedOption, setSelectedOption] = useState("");  
+export default function SelectInput({ label, id, placeholder, required, options }: SelectInputProps) {
+  const [selectedOption, setSelectedOption] = useState("");
 
   return (
     <div className="flex flex-col">
