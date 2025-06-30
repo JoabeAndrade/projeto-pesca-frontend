@@ -1,23 +1,22 @@
 import { MunicipioData } from "./municipio";
 import { ColoniaData } from "./colonia";
+import { ArtePescaData } from "./arte-pesca";
+import { AreaPescaData } from "./area-pesca";
 
-export type PescadorData = {
-  id: number,
+type PescadorBase = {
   nome: string,
   sexo: string,
   apelido: string,
-  cidade_natal: MunicipioData,
   data_nascimento: string,
   nome_pai: string,
   nome_mae: string,
-  colonia_inscrita: ColoniaData,
   matricula_colonia: string,
   data_inscricao_colonia: string,
   rg: string,
   cpf: string,
   tipo_embarcacao: string,
-  tamanho_embarcacao: string,
   proprietario_embarcacao: boolean,
+  tamanho_embarcacao: string,
   escolaridade: string,
   renda_mensal_pesca: number,
   outra_renda: string,
@@ -26,3 +25,19 @@ export type PescadorData = {
   falecido: boolean,
   data_cadastramento: string,
 };
+
+export type PescadorData = PescadorBase & {
+  id: number,
+  cidade_natal: MunicipioData,
+  naturalidade: MunicipioData,
+  colonia_inscrita: ColoniaData,
+  colonia: ColoniaData,
+  artes_pesca: ArtePescaData,
+  areas_pesca: AreaPescaData,
+};
+
+export type PescadorWriteData = PescadorBase & {
+  naturalidade_id: number,
+  colonia_id: number,
+  comunidade_id: number,
+}

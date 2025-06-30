@@ -2,6 +2,13 @@
 
 import { ComunidadeData } from "@/types/pescadores/comunidade";
 import { MunicipioData } from "@/types/pescadores/municipio";
+import { ColoniaData } from "@/types/pescadores/colonia";
+
+export async function getColonias(): Promise<ColoniaData[]> {
+  const colonias = await fetch("http://localhost:8000/colonias");
+  const coloniasJson = await colonias.json();
+  return coloniasJson;
+}
 
 export async function getComunidades(): Promise<ComunidadeData[]> {
   const comunidades = await fetch("http://localhost:8000/comunidades");
@@ -49,17 +56,13 @@ export async function createColonia(formData: FormData): Promise<void> {
     comunidade_id: formData.get("comunidade"),
   };
 
-  await fetch('http://localhost:8000/colonias/', {
-    method: "POST",
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify(data),
-  })
+  await fetchData(data, 'colonias');
 }
 
 export async function createComunidade(formData: FormData): Promise<void> {
   const data = {
     nome: formData.get("nome"),
-    municipio_id: formData.get("municipio_id"),
+    municipio_id: formData.get("municipio"),
   }
 
   await fetchData(data, "comunidades");

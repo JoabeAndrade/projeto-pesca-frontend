@@ -1,21 +1,26 @@
 "use client";
 
-import { createColonia } from "@/app/actions";
-import { ComunidadeData } from "@/types/pescadores/comunidade";
+import { createColonia, getComunidades } from "@/app/actions";
 import FormContainer from "./FormContainer";
 import TextInput from "./TextInput";
 import SelectInput from "./SelectInput";
 import SubmitButton from "./SubmitButton";
 import SectionContainer from "./SectionContainer";
+import { useEffect, useState } from "react";
 
-type ColoniaFormProps = {
-  comunidades: ComunidadeData[],
+type Option = {
+  text: string;
+  value: string;
 };
 
-export default function ColoniaForm({ comunidades }: ColoniaFormProps) {
-  const comunidadeOptions = comunidades.map(
-    ({ id, nome }) => ({ value: id.toString(), text: nome })
-  );
+export default function ColoniaForm() {
+  const [optionsComunidade, setOptionsComunidade] = useState<Option[]>([]);
+
+  useEffect(() => {
+    getComunidades()
+      .then((resp) => (resp.map(({ id, nome }) => ({ text: nome, value: id.toString() }))))
+      .then((opts) => (setOptionsComunidade(opts)))
+  }, []);
 
   return (
     <FormContainer action={createColonia}>
@@ -29,7 +34,7 @@ export default function ColoniaForm({ comunidades }: ColoniaFormProps) {
         <SelectInput
           label="Comunidade"
           id="comunidade"
-          options={comunidadeOptions}
+          options={optionsComunidade}
           placeholder="Selecione uma comunidade"
           required={true}
         />
