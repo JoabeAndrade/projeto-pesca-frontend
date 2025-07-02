@@ -1,10 +1,10 @@
 type DecimalInputProps = {
   label: string,
   id: string,
-  required: boolean,
+  required?: boolean,
 };
 
-export default function DecimalInput({ label, id, required }: DecimalInputProps) {
+export default function DecimalInput({ label, id, required=false }: DecimalInputProps) {
   return (
     <div>
       <label htmlFor={id}>{label}</label>

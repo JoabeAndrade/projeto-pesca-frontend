@@ -1,10 +1,13 @@
 "use client";
 
-import { createMunicipio } from "@/app/actions";
-import FormContainer from "./FormContainer";
-import SelectInput from "./SelectInput";
-import TextInput from "./TextInput";
-import SubmitButton from "./SubmitButton";
+import { createMunicipio } from "@/actions/server/create-municipio";
+import { editMunicipio } from "@/actions/server/edit-municipio";
+import FormContainer from "../containers/FormContainer";
+import SelectInput from "../inputs/SelectInput";
+import TextInput from "../inputs/TextInput";
+import SubmitButton from "../SubmitButton";
+import { MunicipioData } from "@/types/pescadores/municipio";
+import SectionContainer from "../containers/SectionContainer";
 
 const ufs = [
   { sigla: "AC", nome: "Acre" },
@@ -36,26 +39,35 @@ const ufs = [
   { sigla: "TO", nome: "Tocantins" },
 ];
 
-export default function MunicipioForm() {
+type MunicipioFormProps = {
+  municipio?: MunicipioData;
+};
+
+export default function MunicipioForm({ municipio }: MunicipioFormProps) {
   const ufOptions = ufs.map(
     ({ nome, sigla }) => ({ value: sigla, text: `${nome} (${sigla})` })
   );
 
+  const action = (typeof municipio === 'undefined') ? createMunicipio : editMunicipio;
+
   return (
-    <FormContainer action={createMunicipio}>
+    <FormContainer action={action}>
+      <input type="hidden" name="id" value={municipio?.id} />
+      <SectionContainer>
       <TextInput
         label="Nome do município"
         id="nome"
-        placeholder=""
+        value={municipio?.nome}
         required={true}
       />
       <SelectInput
         label="Unidade da Federação"
         id="uf"
-        placeholder=""
-        required={true}
         options={ufOptions}
+        defaultValue={municipio?.uf}
+        required={true}
       />
+      </SectionContainer>
       <SubmitButton />
     </FormContainer>
   );

@@ -1,5 +1,5 @@
-import ArtePescaForm from "@/components/ArtePescaForm";
-import PageContainer from "@/components/PageContainer";
+import ArtePescaForm from "@/components/forms/ArtePescaForm";
+import PageContainer from "@/components/containers/PageContainer";
 import PageTitle from "@/components/PageTitle";
 import Link from "next/link";
 

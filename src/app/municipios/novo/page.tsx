@@ -1,5 +1,5 @@
-import MunicipioForm from "@/components/MunicipioForm";
-import PageContainer from "@/components/PageContainer";
+import MunicipioForm from "@/components/forms/MunicipioForm";
+import PageContainer from "@/components/containers/PageContainer";
 import PageTitle from "@/components/PageTitle";
 import Link from "next/link";
 

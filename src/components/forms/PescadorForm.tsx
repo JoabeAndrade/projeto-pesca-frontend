@@ -2,20 +2,28 @@
 
 import { useActionState, useEffect, useState } from "react";
 import { createPescador } from "@/actions/server/create-pescador";
-import FormContainer from "./FormContainer";
-import SectionContainer from "./SectionContainer";
-import TextInput from "./TextInput";
-import SelectInput from "./SelectInput";
-import SubmitButton from "./SubmitButton";
-import DateInput from "./DateInput";
-import RadioInput from "./RadioInput";
-import BooleanInput from "./BooleanInput";
-import NumberInput from "./NumberInput";
-import { getColonias, getComunidades, getMunicipios } from "@/app/actions";
+import FormContainer from "../containers/FormContainer";
+import SectionContainer from "../containers/SectionContainer";
+import TextInput from "../inputs/TextInput";
+import SelectInput from "../inputs/SelectInput";
+import SubmitButton from "../SubmitButton";
+import DateInput from "../inputs/DateInput";
+import RadioInput from "../inputs/RadioInput";
+import BooleanInput from "../inputs/BooleanInput";
+import NumberInput from "../inputs/NumberInput";
+import { getAllMunicipios } from "@/actions/server/get-all-municipios";
+import { getAllComunidades } from "@/actions/server/get-all-comunidades";
+import { getAllColonias } from "@/actions/server/get-all-colonias";
+import { PescadorData } from "@/types/pescadores/pescador";
+import { editPescador } from "@/actions/server/edit-pescador";
 
 type Option = {
   text: string;
   value: string;
+};
+
+type PescadorFormProps = {
+  pescador?: PescadorData;
 };
 
 const initialState = {
@@ -23,12 +31,13 @@ const initialState = {
   message: "",
 };
 
-export default function PescadorForm() {
+export default function PescadorForm({ pescador }: PescadorFormProps) {
   const [optionsNaturalidade, setOptionsNaturalidade] = useState<Option[]>([]);
   const [optionsColonia, setOptionsColonia] = useState<Option[]>([]);
   const [optionsComunidade, setOptionsComunidade] = useState<Option[]>([]);
-
-  const [status, formAction] = useActionState(createPescador, initialState);
+  
+  const action = (typeof pescador === 'undefined') ? createPescador : editPescador;
+  const [status, formAction] = useActionState(action, initialState);
 
   const optionsSexo = [
     { text: "Masculino", value: "m" },
@@ -57,21 +66,21 @@ export default function PescadorForm() {
   ];
 
   useEffect(() => {
-    getMunicipios().then((response) => {
+    getAllMunicipios().then((response) => {
       const opts = response.map(
         ({ id, nome, uf }) => ({ text: `${nome}/${uf}`, value: id.toString() })
       );
       setOptionsNaturalidade(opts);
     });
 
-    getColonias().then((response) => {
+    getAllColonias().then((response) => {
       const opts = response.map(
         ({ id, codigo }) => ({ text: codigo, value: id.toString() })
       );
       setOptionsColonia(opts);
     });
 
-    getComunidades().then((response) => {
+    getAllComunidades().then((response) => {
       const opts = response.map(
         ({ id, nome }) => ({ text: nome, value: id.toString() })
       );
@@ -83,77 +92,63 @@ export default function PescadorForm() {
 
   return (
     <FormContainer action={formAction}>
+      <input type="hidden" name="id" value={pescador?.id} />
       <SectionContainer title="Dados pessoais">
         <TextInput
           label="Nome"
           id="nome"
-          placeholder=""
+          value={pescador?.nome}
           required={true}
         />
         <SelectInput
           label="Sexo"
           id="sexo"
-          placeholder=""
-          required={false}
           options={optionsSexo}
+          defaultValue={pescador?.sexo}
         />
         <TextInput
           label="Apelido"
           id="apelido"
-          placeholder=""
-          required={false}
+          value={pescador?.apelido}
         />
         <DateInput
           label="Data de nascimento"
           id="data_nascimento"
-          placeholder=""
-          required={false}
         />
         <SelectInput
           label="Naturalidade"
           id="naturalidade"
-          placeholder=""
-          required={false}
           options={optionsNaturalidade}
+          defaultValue={pescador?.naturalidade?.id}
         />
         <TextInput
           label="Nome do pai"
           id="nome_pai"
-          placeholder=""
-          required={false}
+          value={pescador?.nome_pai}
         />
         <TextInput
           label="Nome da mãe"
           id="nome_mae"
-          placeholder=""
-          required={false}
+          value={pescador?.nome_mae}
         />
       </SectionContainer>
       <SectionContainer title="Organizações">
         <SelectInput
           label="Colônia"
           id="colonia"
-          placeholder=""
-          required={false}
           options={optionsColonia}
         />
         <TextInput
           label="Número de matrícula na colônia"
           id="matricula_colonia"
-          placeholder=""
-          required={false}
         />
         <DateInput
           label="Data de matrícula na colônia"
           id="data_matricula_colonia"
-          placeholder=""
-          required={false}
         />
         <SelectInput
           label="Comunidade"
           id="comunidade"
-          placeholder=""
-          required={false}
           options={optionsComunidade}
         />
       </SectionContainer>
@@ -161,14 +156,10 @@ export default function PescadorForm() {
         <TextInput
           label="RG"
           id="rg"
-          placeholder=""
-          required={false}
         />
         <TextInput
           label="CPF"
           id="cpf"
-          placeholder=""
-          required={false}
         />
       </SectionContainer>
       <SectionContainer title="Embarcação">
@@ -191,20 +182,15 @@ export default function PescadorForm() {
         <SelectInput
           label="Escolaridade"
           id="escolaridade"
-          placeholder=""
           options={optionsEscolaridade}
-          required={false}
         />
         <NumberInput
           label="Renda mensal com a pesca"
           id="renda_mensal_pesca"
-          required={false}
         />
         <TextInput
           label="Outra renda comercial"
           id="outra_renda"
-          placeholder=""
-          required={false}
         />
         <BooleanInput
           title="Ainda é ativo como pescador?"
@@ -213,16 +199,12 @@ export default function PescadorForm() {
         <TextInput
           label="Se estiver inativo, qual o motivo?"
           id="motivo_inatividade"
-          placeholder=""
-          required={false}
         />
       </SectionContainer>
       <SectionContainer title="Dados do cadastro">
         <DateInput
           label="Data de cadastramento"
           id="data_cadastramento"
-          placeholder=""
-          required={false}
         />
       </SectionContainer>
       <SubmitButton />

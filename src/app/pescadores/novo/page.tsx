@@ -1,6 +1,6 @@
-import PageContainer from "@/components/PageContainer";
+import PageContainer from "@/components/containers/PageContainer";
 import PageTitle from "@/components/PageTitle";
-import PescadorForm from "@/components/PescadorForm";
+import PescadorForm from "@/components/forms/PescadorForm";
 import Link from "next/link";
 
 export default async function Page() {

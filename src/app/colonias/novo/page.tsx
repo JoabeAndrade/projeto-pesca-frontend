@@ -1,11 +1,11 @@
 import PageTitle from "@/components/PageTitle";
-import ColoniaForm from "@/components/ColoniaForm";
-import { getComunidades } from "@/app/actions";
+import ColoniaForm from "@/components/forms/ColoniaForm";
+import { getAllComunidades } from "@/actions/server/get-all-comunidades";
 import Link from "next/link";
-import PageContainer from "@/components/PageContainer";
+import PageContainer from "@/components/containers/PageContainer";
 
 export default async function Page() {
-  const comunidades = await getComunidades();
+  const comunidades = await getAllComunidades();
 
   return (
     <PageContainer>

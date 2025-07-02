@@ -1,5 +1,5 @@
-import AreaPescaForm from "@/components/AreaPescaForm";
-import PageContainer from "@/components/PageContainer";
+import AreaPescaForm from "@/components/forms/AreaPescaForm";
+import PageContainer from "@/components/containers/PageContainer";
 import PageTitle from "@/components/PageTitle";
 import Link from "next/link";
 

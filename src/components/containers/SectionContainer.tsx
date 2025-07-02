@@ -1,5 +1,5 @@
 type SectionContainerProps = {
-  title: string,
+  title?: string,
   children: React.ReactNode,
 };
 

@@ -1,11 +1,11 @@
-import { getMunicipios } from "@/app/actions";
-import ComunidadeForm from "@/components/ComunidadeForm";
-import PageContainer from "@/components/PageContainer";
+import { getAllMunicipios } from "@/actions/server/get-all-municipios";
+import ComunidadeForm from "@/components/forms/ComunidadeForm";
+import PageContainer from "@/components/containers/PageContainer";
 import PageTitle from "@/components/PageTitle";
 import Link from "next/link";
 
 export default async function Page() {
-  const municipios = await getMunicipios();
+  const municipios = await getAllMunicipios();
 
   return (
     <PageContainer>
