@@ -104,7 +104,7 @@ export default function PescadorForm({ pescador }: PescadorFormProps) {
           label="Sexo"
           id="sexo"
           options={optionsSexo}
-          defaultValue={pescador?.sexo}
+          initialValue={pescador?.sexo}
         />
         <TextInput
           label="Apelido"
@@ -119,7 +119,7 @@ export default function PescadorForm({ pescador }: PescadorFormProps) {
           label="Naturalidade"
           id="naturalidade"
           options={optionsNaturalidade}
-          defaultValue={pescador?.naturalidade?.id}
+          initialValue={pescador?.naturalidade?.id}
         />
         <TextInput
           label="Nome do pai"

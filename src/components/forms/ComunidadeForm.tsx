@@ -3,21 +3,38 @@
 import { createComunidade } from "@/actions/server/create-comunidade";
 import FormContainer from "../containers/FormContainer";
 import SubmitButton from "../SubmitButton";
-import SelectInput from "../inputs/SelectInput";
 import TextInput from "../inputs/TextInput";
 import { MunicipioData } from "@/types/pescadores/municipio";
 import { ComunidadeData } from "@/types/pescadores/comunidade";
 import { editComunidade } from "@/actions/server/edit-comunidade";
+import { useEffect, useState } from "react";
+import { NewSelectInput } from "../inputs/NewSelectInput";
 
 type ComunidadeFormProps = {
-  municipios: MunicipioData[],
+  municipios: Promise<MunicipioData[]>,
   comunidade?: ComunidadeData,
 };
 
-export default function ComunidadeForm({ municipios, comunidade }: ComunidadeFormProps) {
-  const municipiosOptions = municipios.map(
-    ({ id, nome, uf }) => ({ value: id.toString(), text: `${nome}/${uf}` })
+type Option = {
+  value: string,
+  label: string,
+};
+
+async function formatMunicipiosToOptions(municipios: Promise<MunicipioData[]>): Promise<Option[]> {
+  const muns = await municipios;
+  const options = muns.map(
+    ({ id, nome, uf }) => ({ value: id.toString(), label: `${nome}/${uf}` })
   );
+  return options;
+}
+
+export default function ComunidadeForm({ municipios, comunidade }: ComunidadeFormProps) {
+  const [ municipio, setMunicipio ] = useState(comunidade?.municipio?.id.toString());
+  const [ municipiosOptions, setMunicipiosOptions ] = useState<Option[]>([]);
+
+  useEffect(() => {
+    formatMunicipiosToOptions(municipios).then((opts) => setMunicipiosOptions(opts));
+  }, [municipios]);
 
   const action = (typeof comunidade === 'undefined') ? createComunidade : editComunidade;
 
@@ -30,11 +47,12 @@ export default function ComunidadeForm({ municipios, comunidade }: ComunidadeFor
         value={comunidade?.nome}
         required={true}
       />
-      <SelectInput
+      <NewSelectInput
         label="Município"
-        id="municipio"
+        name="municipio"
         options={municipiosOptions}
-        defaultValue={comunidade?.municipio?.id}
+        value={municipio}
+        onChange={setMunicipio}
         required={true}
       />
       <SubmitButton />

@@ -3,21 +3,44 @@
 import { createColonia } from "@/actions/server/create-colonia";
 import FormContainer from "../containers/FormContainer";
 import TextInput from "../inputs/TextInput";
-import SelectInput from "../inputs/SelectInput";
 import SubmitButton from "../SubmitButton";
 import { ColoniaData } from "@/types/pescadores/colonia";
 import { editColonia } from "@/actions/server/edit-colonia";
 import { ComunidadeData } from "@/types/pescadores/comunidade";
+import { useEffect, useState } from "react";
+import { NewSelectInput } from "../inputs/NewSelectInput";
 
 type ColoniaFormProps = {
-  comunidades: ComunidadeData[],
+  comunidades: Promise<ComunidadeData[]>,
   colonia?: ColoniaData;
 };
 
+type Option = {
+  value: string;
+  label: string;
+};
+
+function formatComunidadesToOptions(comunidades: ComunidadeData[]): Option[] {
+  return comunidades.map(({ id, nome }) => ({
+    value: id.toString(),
+    label: nome,
+  }));
+}
+
+async function receiveComunidades(comunidades: Promise<ComunidadeData[]>): Promise<Option[]> {
+  const data = await comunidades;
+  return formatComunidadesToOptions(data);
+}
+
 export default function ColoniaForm({ comunidades, colonia }: ColoniaFormProps) {
-  const optionsComunidade = comunidades.map(({ id, nome }) => ({ text: nome, value: id.toString() }))
+  const [ optionsComunidade, setOptionsComunidade ] = useState<Option[]>([]);
+  const [ selectedComunidade, setSelectedComunidade ] = useState(colonia?.comunidade?.id.toString() || "");
 
   const action = (typeof colonia === 'undefined') ? createColonia : editColonia;
+
+  useEffect(() => {
+    receiveComunidades(comunidades).then((opts) => setOptionsComunidade(opts))
+  }, [comunidades]);
 
   return (
     <FormContainer action={action}>
@@ -28,12 +51,12 @@ export default function ColoniaForm({ comunidades, colonia }: ColoniaFormProps) 
         value={colonia?.codigo}
         required={true}
       />
-      <SelectInput
+      <NewSelectInput
         label="Comunidade"
-        id="comunidade"
+        name="comunidade"
+        value={selectedComunidade}
+        onChange={setSelectedComunidade}
         options={optionsComunidade}
-        defaultValue={colonia?.comunidade?.id}
-        placeholder="Selecione uma comunidade"
         required={true}
       />
       <SubmitButton />

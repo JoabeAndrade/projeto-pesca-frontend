@@ -64,7 +64,7 @@ export default function MunicipioForm({ municipio }: MunicipioFormProps) {
         label="Unidade da Federação"
         id="uf"
         options={ufOptions}
-        defaultValue={municipio?.uf}
+        initialValue={municipio?.uf}
         required={true}
       />
       </SectionContainer>

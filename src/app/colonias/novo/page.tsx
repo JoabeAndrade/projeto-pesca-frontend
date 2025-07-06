@@ -5,7 +5,7 @@ import Link from "next/link";
 import PageContainer from "@/components/containers/PageContainer";
 
 export default async function Page() {
-  const comunidades = await getAllComunidades();
+  const comunidades = getAllComunidades();
 
   return (
     <PageContainer>

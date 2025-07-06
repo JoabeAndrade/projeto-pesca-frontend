@@ -7,13 +7,21 @@ type SelectInputProps = {
     value: string;
     text: string;
   }[],
-  defaultValue?: string | number;
+  initialValue?: string | number;
+  handleChange?: (value: string) => void;
 };
 
 export default function SelectInput(
-  { label, id, placeholder="", required=false, options, defaultValue }: SelectInputProps
+  { label, id, placeholder="", required=false, options, initialValue, handleChange }: SelectInputProps
 ) {
-  const value = defaultValue || "";
+  let value, defaultValue;
+
+  if (typeof handleChange === 'undefined') {
+    defaultValue = initialValue;
+    handleChange = () => {};
+  } else {
+    value = initialValue;
+  }
 
   return (
     <div className="flex flex-col">
@@ -21,8 +29,10 @@ export default function SelectInput(
       <select
         name={id}
         id={id}
-        defaultValue={value}
+        value={value}
+        defaultValue={defaultValue}
         required={required}
+        onChange={(e) => handleChange(e.target.value)}
         className="p-2 border-2 border-[#6d4c41] rounded"
       >
         <option value="">{placeholder}</option>

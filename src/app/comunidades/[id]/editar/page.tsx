@@ -1,3 +1,5 @@
+"use server";
+
 import { getAllMunicipios } from "@/actions/server/get-all-municipios";
 import getComunidade from "@/actions/server/get-comunidade";
 import PageContainer from "@/components/containers/PageContainer";
@@ -8,7 +10,7 @@ import Link from "next/link";
 export default async function Page({ params }: { params: Promise<{ id: string}>} ) {
   const { id } = await params;
   const comunidade = await getComunidade(id);
-  const municipios = await getAllMunicipios();
+  const municipios = getAllMunicipios();
 
   return (
     <PageContainer>
