@@ -2,6 +2,7 @@ import { MunicipioData } from "./municipio";
 import { ColoniaData } from "./colonia";
 import { ArtePescaData } from "./arte-pesca";
 import { AreaPescaData } from "./area-pesca";
+import { TelefoneData } from "./telefone";
 
 type PescadorBase = {
   nome: string,
@@ -32,8 +33,9 @@ export type PescadorData = PescadorBase & {
   naturalidade: MunicipioData,
   colonia_inscrita: ColoniaData,
   colonia: ColoniaData,
-  artes_pesca: ArtePescaData,
-  areas_pesca: AreaPescaData,
+  artes_pesca: ArtePescaData[],
+  areas_pesca: AreaPescaData[],
+  telefones: TelefoneData[],
 };
 
 export type PescadorWriteData = PescadorBase & {

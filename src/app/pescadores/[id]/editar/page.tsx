@@ -4,13 +4,13 @@ import getPescador from "@/actions/server/get-pescador";
 import PageContainer from "@/components/containers/PageContainer";
 import PescadorForm from "@/components/forms/PescadorForm";
 import PageTitle from "@/components/PageTitle";
-import Link from "next/link";
-import RendaFormClient from "@/components/forms/RendaFormClient"; // ✅ IMPORTADO
+import TelefoneCard from "@/components/TelefonesCard";
+import ReturnButton from "@/components/ReturnButton";
 
 export default async function Page({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: number }>;
 }) {
   const { id } = await params;
   const pescador = await getPescador(id);
@@ -19,12 +19,11 @@ export default async function Page({
     <PageContainer>
       <PageTitle title="Editar pescador" />
       <PescadorForm pescador={pescador} />
-      <Link href="/pescadores" className="text-blue-500 underline mb-4 block">
-        VOLTAR
-      </Link>
-
-      {/* ✅ Componente cliente com formulário de renda */}
-      <RendaFormClient pescadorId={id} />
+      <ReturnButton url="/pescadores" />
+      <TelefoneCard
+        pescadorId={Number(id)}
+        telefones={pescador.telefones}
+      />
     </PageContainer>
   );
 }
