@@ -6,6 +6,16 @@ import PescadorForm from "@/components/forms/PescadorForm";
 import PageTitle from "@/components/PageTitle";
 import TelefoneCard from "@/components/TelefonesCard";
 import ReturnButton from "@/components/ReturnButton";
+import DependentesCard from "@/components/DependentesCard";
+
+const tiposDependente = [
+    { value: 'conjuge_companheira', label: 'Cônjuge ou companheiro(a)' },
+    { value: 'filhos_enteados', label: 'Filhos(as) ou enteados(as)' },
+    { value: 'irmaos_netos_bisnetos', label: 'Irmãos(ãs), netos(as) ou bisnetos(as)' },
+    { value: 'pais_avos_bisavos', label: 'Pais, avós ou bisavós' },
+    { value: 'sogro', label: 'Sogro(a)' },
+    { value: 'incapazes', label: 'Incapaz(es)' },
+];
 
 export default async function Page({
   params,
@@ -23,6 +33,11 @@ export default async function Page({
       <TelefoneCard
         pescadorId={Number(id)}
         telefones={pescador.telefones}
+      />
+      <DependentesCard
+        idPescador={pescador.id}
+        dependentes={pescador.dependentes}
+        tiposDependente={tiposDependente}
       />
     </PageContainer>
   );

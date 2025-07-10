@@ -6,6 +6,7 @@ import Button from "./Button";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import Link from "next/link";
 
 type PropsListItemPescadores = {
   id: number;
@@ -67,7 +68,7 @@ export default function ListItemPescadores({
           <h1>{projetoCadastrado}</h1>
         </div>
         <div className="w-24 flex flex-row items-center justify-center">
-          <Button icon={Pencil} className="rounded-full bg-[#6d4c41] mx-2" />
+          <Link href={`/pescadores/${id}/editar`}><Button icon={Pencil} className="rounded-full bg-[#6d4c41] mx-2" /></Link>
           <Button
             icon={Trash}
             className="rounded-full bg-[#e53935] mx-2"
