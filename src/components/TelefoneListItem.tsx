@@ -2,7 +2,6 @@
 
 import { deleteItem } from "@/actions/server/delete-item";
 import { TelefoneData } from "@/types/pescadores/telefone";
-import { usePathname } from "next/navigation";
 
 type TelefoneListItemProps = {
   index: number,
@@ -10,22 +9,14 @@ type TelefoneListItemProps = {
 };
 
 export default function TelefoneListItem({ index, telefone }: TelefoneListItemProps) {
-  const currentPath = usePathname();
-
   const handleDelete = () => {
-    const response = deleteItem({
-      url: 'telefones',
-      id: telefone.id,
-      revalidationPath: currentPath,
-    });
-    response.then((response) => {
-      if (response.ok)
-        console.log("deu");
-      else
-        console.log("não deu");
-    }).catch(() => {
-      console.log("não alcançou o servidor");
-    })
+    deleteItem({ url: `/telefones/${telefone.id}` })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(() => {
+        console.log("não conseguiu conectar com o servidor.");
+      });
   };
 
   return (

@@ -5,6 +5,7 @@ import { House } from "lucide-react";
 import CardContainer from "./containers/CardContainer";
 import CardHeader from "./CardHeader";
 import { createDependente } from "@/actions/server/create-dependente";
+import { deleteItem } from "@/actions/server/delete-item";
 
 type Option = {
   value: string,
@@ -18,6 +19,16 @@ type DependentesCardProps = {
 };
 
 export default function DependentesCard({ idPescador, dependentes, tiposDependente }: DependentesCardProps) {
+  const handleDelete = (id: number) => {
+    deleteItem({ url: `/dependentes/${id}` })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(() => {
+        console.log("não alcançou o servidor");
+      })
+  };
+
   return (
     <CardContainer>
       <CardHeader title="Dependentes" icon={<House />} />
@@ -62,6 +73,7 @@ export default function DependentesCard({ idPescador, dependentes, tiposDependen
               <th className="py-2"></th>
               <th className="py-2">Relação</th>
               <th className="py-2">Quantidade</th>
+              <th className="py-2">Opções</th>
             </tr>
           </thead>
           <tbody>
@@ -70,6 +82,11 @@ export default function DependentesCard({ idPescador, dependentes, tiposDependen
                 <td>{index + 1}</td>
                 <td>{dependente.relacao}</td>
                 <td>{dependente.quantidade}</td>
+                <td>
+                  <div>
+                    <button onClick={() => handleDelete(dependente.id)}>Excluir</button>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
