@@ -4,9 +4,9 @@ import getPescador from "@/actions/server/get-pescador";
 import PageContainer from "@/components/containers/PageContainer";
 import PescadorForm from "@/components/forms/PescadorForm";
 import PageTitle from "@/components/PageTitle";
-import TelefoneCard from "@/components/TelefonesCard";
+import TelefoneCard from "@/components/cards/TelefonesCard";
 import ReturnButton from "@/components/ReturnButton";
-import DependentesCard from "@/components/DependentesCard";
+import DependentesCard from "@/components/cards/DependentesCard";
 
 const tiposDependente = [
     { value: 'conjuge_companheira', label: 'Cônjuge ou companheiro(a)' },

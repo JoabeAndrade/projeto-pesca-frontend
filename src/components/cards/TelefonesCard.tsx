@@ -2,9 +2,9 @@
 
 import { Phone } from "lucide-react";
 import { TelefoneData } from "@/types/pescadores/telefone";
-import CardContainer from "./containers/CardContainer";
+import CardContainer from "../containers/CardContainer";
 import CardHeader from "./CardHeader";
-import TelefoneForm from "./forms/TelefoneForm";
+import TelefoneForm from "../forms/TelefoneForm";
 import TelefonesList from "./TelefonesList";
 
 type TelefonesCardProps = {

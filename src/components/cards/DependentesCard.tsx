@@ -2,7 +2,7 @@
 
 import { DependenteData } from "@/types/pescadores/dependente"
 import { House } from "lucide-react";
-import CardContainer from "./containers/CardContainer";
+import CardContainer from "../containers/CardContainer";
 import CardHeader from "./CardHeader";
 import { createDependente } from "@/actions/server/create-dependente";
 import { deleteItem } from "@/actions/server/delete-item";
