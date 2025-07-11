@@ -7,6 +7,10 @@ import PageTitle from "@/components/PageTitle";
 import TelefoneCard from "@/components/cards/TelefonesCard";
 import ReturnButton from "@/components/ReturnButton";
 import DependentesCard from "@/components/cards/DependentesCard";
+import ArtesPescaCard from "@/components/cards/ArtesPescaCard";
+import { getAllArtesPesca } from "@/actions/server/get-all-artes-pesca";
+import { getAllAreasPesca } from "@/actions/server/get-all-areas-pesca";
+import AreasPescaCard from "@/components/cards/AreasPescaCard";
 
 const tiposDependente = [
     { value: 'conjuge_companheira', label: 'Cônjuge ou companheiro(a)' },
@@ -24,12 +28,24 @@ export default async function Page({
 }) {
   const { id } = await params;
   const pescador = await getPescador(id);
+  const artesPesca = getAllArtesPesca();
+  const areasPesca = getAllAreasPesca();
 
   return (
     <PageContainer>
       <PageTitle title="Editar pescador" />
       <PescadorForm pescador={pescador} />
       <ReturnButton url="/pescadores" />
+      <ArtesPescaCard
+        idPescador={pescador.id}
+        artesDoPescador={pescador.artes_pesca}
+        todasArtesPesca={artesPesca}
+      />
+      <AreasPescaCard
+        idPescador={pescador.id}
+        areasPescaDoPescador={pescador.areas_pesca}
+        todasAreasPesca={areasPesca}
+      />
       <TelefoneCard
         pescadorId={Number(id)}
         telefones={pescador.telefones}
