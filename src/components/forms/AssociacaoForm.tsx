@@ -19,7 +19,7 @@ export default function AssociacaoForm({ associacao }: AssociacaoFormProps) {
       <input type="hidden" name="id" value={associacao?.id} />
       <TextInput
         label="Nome da associação"
-        id="nome"
+        name="nome"
         value={associacao?.nome}
         required={true}
       />

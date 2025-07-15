@@ -19,7 +19,7 @@ export default function ArtePescaForm({ artePesca }: ArtePescaProps) {
       <input type="hidden" name="id" value={artePesca?.id}/>
       <TextInput
         label="Nome da arte de pesca"
-        id="nome"
+        name="nome"
         value={artePesca?.nome}
         required={true}
       />

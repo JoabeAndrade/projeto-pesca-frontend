@@ -56,7 +56,7 @@ export default function MunicipioForm({ municipio }: MunicipioFormProps) {
       <SectionContainer>
       <TextInput
         label="Nome do município"
-        id="nome"
+        name="nome"
         value={municipio?.nome}
         required={true}
       />

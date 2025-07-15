@@ -43,7 +43,7 @@ export default function ComunidadeForm({ municipios, comunidade }: ComunidadeFor
       <input type="hidden" name="id" value={comunidade?.id} />
       <TextInput
         label="Nome da comunidade"
-        id="nome"
+        name="nome"
         value={comunidade?.nome}
         required={true}
       />

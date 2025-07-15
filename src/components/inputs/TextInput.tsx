@@ -1,25 +1,25 @@
 type TextInputProps = {
   label: string;
-  id: string;
+  name: string;
   value?: string;
   placeholder?: string;
   required?: boolean;
 };
 
 export default function TextInput(
-  { label, id, value="", placeholder="", required=false }: TextInputProps
+  { label, name, value="", placeholder="", required=false }: TextInputProps
 ) {
   return (
     <div className="flex flex-col">
       <label
-        htmlFor={id}
+        htmlFor={name}
       >
         {label}
       </label>
       <input
         type="text"
-        id={id}
-        name={id}
+        id={name}
+        name={name}
         defaultValue={value}
         placeholder={placeholder}
         required={required}

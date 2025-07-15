@@ -19,7 +19,7 @@ export default function AreaPescaForm({ areaPesca }: AreaPescaFormProps) {
       <input type="hidden" name="id" value={areaPesca?.id}/>
       <TextInput
         label="Descrição da área de pesca"
-        id="descricao"
+        name="descricao"
         value={areaPesca?.descricao}
         required={true}
       />

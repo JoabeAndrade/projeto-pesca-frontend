@@ -10,21 +10,48 @@ import SubmitButton from "../SubmitButton";
 import DateInput from "../inputs/DateInput";
 import RadioInput from "../inputs/RadioInput";
 import BooleanInput from "../inputs/BooleanInput";
-import NumberInput from "../inputs/NumberInput";
+import DecimalInput from "../inputs/DecimalInput";
 import { getAllMunicipios } from "@/actions/server/get-all-municipios";
 import { getAllComunidades } from "@/actions/server/get-all-comunidades";
 import { getAllColonias } from "@/actions/server/get-all-colonias";
 import { PescadorData } from "@/types/pescadores/pescador";
 import { editPescador } from "@/actions/server/edit-pescador";
+import { NewSelectInput } from "../inputs/NewSelectInput";
 
 type Option = {
-  text: string;
+  label: string;
   value: string;
 };
 
 type PescadorFormProps = {
   pescador?: PescadorData;
 };
+
+const optionsSexo = [
+  { text: "Masculino", value: "m" },
+  { text: "Feminino", value: "f" },
+];
+
+const optionsTipoEmbarcacao = [
+  { label: "Desembarcado", value: "desembarcado" },
+  { label: "Barco", value: "barco" },
+  { label: "Bote", value: "bote" },
+  { label: "Canoa", value: "canoa" },
+  { label: "Jangada", value: "jangada" },
+  { label: "Lancha", value: "lancha" },
+];
+
+const optionsTamanhoEmbarcacao = [
+  { label: "Pequeno", value: "pequeno" },
+  { label: "Médio", value: "medio" },
+  { label: "Grande", value: "grande" },
+];
+
+const optionsEscolaridade = [
+  { label: "Ensino fundamental completo", value: "fundamental_completo" },
+  { label: "Ensino médio completo", value: "medio_completo" },
+  { label: "Ensino superior completo", value: "superior_completo" },
+];
 
 const initialState = {
   errors: [],
@@ -35,54 +62,32 @@ export default function PescadorForm({ pescador }: PescadorFormProps) {
   const [optionsNaturalidade, setOptionsNaturalidade] = useState<Option[]>([]);
   const [optionsColonia, setOptionsColonia] = useState<Option[]>([]);
   const [optionsComunidade, setOptionsComunidade] = useState<Option[]>([]);
-  
+
+  const [ selectedNaturalidade, setSelectedNaturalidade ] = useState(pescador?.naturalidade?.id.toString());
+  const [ selectedColonia, setSelectedColonia ] = useState(pescador?.colonia?.id.toString());
+  const [ selectedComunidade, setSelectedComunidade ] = useState(pescador?.comunidade?.id.toString());
+
   const action = (typeof pescador === 'undefined') ? createPescador : editPescador;
   const [status, formAction] = useActionState(action, initialState);
-
-  const optionsSexo = [
-    { text: "Masculino", value: "m" },
-    { text: "Feminino", value: "f" },
-  ];
-
-  const optionsTipoEmbarcacao = [
-    { label: "Desembarcado", id: "desembarcado" },
-    { label: "Barco", id: "barco" },
-    { label: "Bote", id: "bote" },
-    { label: "Canoa", id: "canoa" },
-    { label: "Jangada", id: "jangada" },
-    { label: "Lancha", id: "lancha" },
-  ];
-
-  const optionsTamanhoEmbarcacao = [
-    { label: "Pequeno", id: "p" },
-    { label: "Médio", id: "m" },
-    { label: "Grande", id: "g" },
-  ];
-
-  const optionsEscolaridade = [
-    { text: "Ensino fundamental completo", value: "fundamental_completo" },
-    { text: "Ensino médio completo", value: "medio_completo" },
-    { text: "Ensino superior completo", value: "superior_completo" },
-  ];
 
   useEffect(() => {
     getAllMunicipios().then((response) => {
       const opts = response.map(
-        ({ id, nome, uf }) => ({ text: `${nome}/${uf}`, value: id.toString() })
+        ({ id, nome, uf }) => ({ label: `${nome}/${uf}`, value: id.toString() })
       );
       setOptionsNaturalidade(opts);
     });
 
     getAllColonias().then((response) => {
       const opts = response.map(
-        ({ id, codigo }) => ({ text: codigo, value: id.toString() })
+        ({ id, codigo }) => ({ label: codigo, value: id.toString() })
       );
       setOptionsColonia(opts);
     });
 
     getAllComunidades().then((response) => {
       const opts = response.map(
-        ({ id, nome }) => ({ text: nome, value: id.toString() })
+        ({ id, nome }) => ({ label: nome, value: id.toString() })
       );
       setOptionsComunidade(opts);
     });
@@ -96,7 +101,7 @@ export default function PescadorForm({ pescador }: PescadorFormProps) {
       <SectionContainer title="Dados pessoais">
         <TextInput
           label="Nome"
-          id="nome"
+          name="nome"
           value={pescador?.nome}
           required={true}
         />
@@ -108,103 +113,122 @@ export default function PescadorForm({ pescador }: PescadorFormProps) {
         />
         <TextInput
           label="Apelido"
-          id="apelido"
+          name="apelido"
           value={pescador?.apelido}
         />
         <DateInput
           label="Data de nascimento"
-          id="data_nascimento"
+          name="data_nascimento"
+          defaultValue={pescador?.data_nascimento}
         />
-        <SelectInput
+        <NewSelectInput
           label="Naturalidade"
-          id="naturalidade"
+          name="naturalidade"
           options={optionsNaturalidade}
-          initialValue={pescador?.naturalidade?.id}
+          value={selectedNaturalidade}
+          onChange={setSelectedNaturalidade}
         />
         <TextInput
           label="Nome do pai"
-          id="nome_pai"
+          name="nome_pai"
           value={pescador?.nome_pai}
         />
         <TextInput
           label="Nome da mãe"
-          id="nome_mae"
+          name="nome_mae"
           value={pescador?.nome_mae}
         />
       </SectionContainer>
       <SectionContainer title="Organizações">
-        <SelectInput
+        <NewSelectInput
           label="Colônia"
-          id="colonia"
+          name="colonia"
           options={optionsColonia}
+          value={selectedColonia}
+          onChange={setSelectedColonia}
         />
         <TextInput
           label="Número de matrícula na colônia"
-          id="matricula_colonia"
+          name="matricula_colonia"
+          value={pescador?.matricula_colonia}
         />
         <DateInput
           label="Data de matrícula na colônia"
-          id="data_matricula_colonia"
+          name="data_matricula_colonia"
+          defaultValue={pescador?.data_inscricao_colonia}
         />
-        <SelectInput
+        <NewSelectInput
           label="Comunidade"
-          id="comunidade"
+          name="comunidade"
           options={optionsComunidade}
+          value={selectedComunidade}
+          onChange={setSelectedComunidade}
         />
       </SectionContainer>
       <SectionContainer title="Documentos">
         <TextInput
           label="RG"
-          id="rg"
+          name="rg"
+          value={pescador?.rg}
         />
         <TextInput
           label="CPF"
-          id="cpf"
+          name="cpf"
+          value={pescador?.cpf}
         />
       </SectionContainer>
       <SectionContainer title="Embarcação">
         <RadioInput
           title="Tipo de embarcação"
           name="tipo_embarcacao"
+          selectedValue={pescador?.tipo_embarcacao}
           options={optionsTipoEmbarcacao}
         />
         <RadioInput
           title="Tamanho da embarcação"
           name="tamanho_embarcacao"
+          selectedValue={pescador?.tamanho_embarcacao}
           options={optionsTamanhoEmbarcacao}
         />
         <BooleanInput
           title="O pescador é proprietário da embarcação?"
           name="proprietario_embarcacao"
+          value={pescador?.proprietario_embarcacao}
         />
       </SectionContainer>
       <SectionContainer title="Dados sociais">
-        <SelectInput
+        <NewSelectInput
           label="Escolaridade"
-          id="escolaridade"
+          name="escolaridade"
+          defaultValue={pescador?.escolaridade}
           options={optionsEscolaridade}
         />
-        <NumberInput
+        <DecimalInput
           label="Renda mensal com a pesca"
           id="renda_mensal_pesca"
+          defaultValue={pescador?.renda_mensal_pesca}
         />
         <TextInput
           label="Outra renda comercial"
-          id="outra_renda"
+          name="outra_renda"
+          value={pescador?.outra_renda}
         />
         <BooleanInput
           title="Ainda é ativo como pescador?"
           name="ativo"
+          value={pescador?.ativo}
         />
         <TextInput
           label="Se estiver inativo, qual o motivo?"
-          id="motivo_inatividade"
+          name="motivo_inatividade"
+          value={pescador?.motivo_inatividade}
         />
       </SectionContainer>
       <SectionContainer title="Dados do cadastro">
         <DateInput
           label="Data de cadastramento"
-          id="data_cadastramento"
+          name="data_cadastramento"
+          defaultValue={pescador?.data_cadastramento}
         />
       </SectionContainer>
       <SubmitButton />

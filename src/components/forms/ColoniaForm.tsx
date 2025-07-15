@@ -47,7 +47,7 @@ export default function ColoniaForm({ comunidades, colonia }: ColoniaFormProps) 
       <input type="hidden" name="id" value={colonia?.id} />
       <TextInput
         label="Código da colônia"
-        id="codigo"
+        name="codigo"
         value={colonia?.codigo}
         required={true}
       />
