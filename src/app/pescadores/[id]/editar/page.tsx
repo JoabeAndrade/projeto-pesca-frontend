@@ -11,6 +11,8 @@ import ArtesPescaCard from "@/components/cards/ArtesPescaCard";
 import { getAllArtesPesca } from "@/actions/server/get-all-artes-pesca";
 import { getAllAreasPesca } from "@/actions/server/get-all-areas-pesca";
 import AreasPescaCard from "@/components/cards/AreasPescaCard";
+import { getAllAssociacoes } from "@/actions/server/get-all-associacoes";
+import AssociacoesCard from "@/components/cards/AssociacoesCard";
 
 const tiposDependente = [
     { value: 'conjuge_companheira', label: 'Cônjuge ou companheiro(a)' },
@@ -30,6 +32,7 @@ export default async function Page({
   const pescador = await getPescador(id);
   const artesPesca = getAllArtesPesca();
   const areasPesca = getAllAreasPesca();
+  const associacoes = getAllAssociacoes();
 
   return (
     <PageContainer>
@@ -45,6 +48,11 @@ export default async function Page({
         idPescador={pescador.id}
         areasPescaDoPescador={pescador.areas_pesca}
         todasAreasPesca={areasPesca}
+      />
+      <AssociacoesCard
+        idPescador={pescador.id}
+        associacoesDoPescador={pescador.associacoes}
+        todasAssociacoes={associacoes}
       />
       <TelefoneCard
         pescadorId={Number(id)}
