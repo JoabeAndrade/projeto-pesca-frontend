@@ -16,7 +16,7 @@ import Link from "next/link";
 import Button from "@/components/Button";
 import { MoveLeft } from "lucide-react";
 import { getAllMunicipios } from "@/actions/server/get-all-municipios";
-import EnderecoDoPescadorForm from "@/components/forms/EnderecoDoPescadorForm";
+import EnderecoGenericForm from "@/components/forms/EnderecoGenericForm";
 
 const tiposDependente = [
   { value: "conjuge_companheira", label: "Cônjuge ou companheiro(a)" },
@@ -43,10 +43,10 @@ export default async function Page({
     <PageContainer>
       <PageTitle title="Editar pescador" />
       <PescadorForm pescador={pescador} />
-      <EnderecoDoPescadorForm
-        idPescador={pescador.id}
+      <EnderecoGenericForm
         endereco={pescador.endereco}
         municipios={municipios}
+        parentData={{type: "pescador", id: pescador.id}}
       />
       <ArtesPescaCard
         idPescador={pescador.id}

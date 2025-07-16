@@ -3,7 +3,7 @@
 import { EnderecoData } from "@/types/pescadores/endereco";
 import { MunicipioData } from "@/types/pescadores/municipio";
 import FormContainer from "../containers/FormContainer";
-import { createEndereco } from "@/actions/server/create-endereco";
+import { addEnderecoToPescador } from "@/actions/server/add-endereco-to-pescador";
 import { editEndereco } from "@/actions/server/edit-endereco";
 import Button from "../Button";
 import { Save } from "lucide-react";
@@ -33,7 +33,7 @@ function formatMunicipiosToOptions(municipios: MunicipioData[]): Option[] {
 
 export default function EnderecoDoPescadorForm({ idPescador, endereco, municipios }: EnderecoFormProps) {
   const [ selectedMunicipio, setSelectedMunicipio ] = useState(endereco?.municipio.id.toString());
-  const action = (endereco) ? editEndereco : createEndereco;
+  const action = (endereco) ? editEndereco : addEnderecoToPescador;
   const optionsMunicipio = use(municipios);
 
   return (

@@ -1,8 +1,10 @@
 import { getAllComunidades } from "@/actions/server/get-all-comunidades";
+import { getAllMunicipios } from "@/actions/server/get-all-municipios";
 import getColonia from "@/actions/server/get-colonia";
 import Button from "@/components/Button";
 import PageContainer from "@/components/containers/PageContainer";
 import ColoniaForm from "@/components/forms/ColoniaForm";
+import EnderecoGenericForm from "@/components/forms/EnderecoGenericForm";
 import PageTitle from "@/components/PageTitle";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
@@ -15,11 +17,17 @@ export default async function Page({
   const { id } = await params;
   const colonia = await getColonia(id);
   const comunidades = getAllComunidades();
+  const municipios = getAllMunicipios();
 
   return (
     <PageContainer>
       <PageTitle title="Editar Colônia" />
       <ColoniaForm colonia={colonia} comunidades={comunidades} />
+      <EnderecoGenericForm
+        endereco={colonia.endereco_sede}
+        municipios={municipios}
+        parentData={{type: "colonia", id: colonia.id}}
+      />
       <Link href="/colonias">
         <Button icon={MoveLeft} iconPosition="left">
           Voltar
