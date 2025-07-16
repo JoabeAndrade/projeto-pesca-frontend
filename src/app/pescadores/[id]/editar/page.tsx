@@ -15,14 +15,13 @@ import AssociacoesCard from "@/components/cards/AssociacoesCard";
 import Link from "next/link";
 import Button from "@/components/Button";
 import { MoveLeft } from "lucide-react";
+import { getAllMunicipios } from "@/actions/server/get-all-municipios";
+import EnderecoDoPescadorForm from "@/components/forms/EnderecoDoPescadorForm";
 
 const tiposDependente = [
   { value: "conjuge_companheira", label: "Cônjuge ou companheiro(a)" },
   { value: "filhos_enteados", label: "Filhos(as) ou enteados(as)" },
-  {
-    value: "irmaos_netos_bisnetos",
-    label: "Irmãos(ãs), netos(as) ou bisnetos(as)",
-  },
+  { value: "irmaos_netos_bisnetos", label: "Irmãos(ãs), netos(as) ou bisnetos(as)" },
   { value: "pais_avos_bisavos", label: "Pais, avós ou bisavós" },
   { value: "sogro", label: "Sogro(a)" },
   { value: "incapazes", label: "Incapaz(es)" },
@@ -38,12 +37,17 @@ export default async function Page({
   const artesPesca = getAllArtesPesca();
   const areasPesca = getAllAreasPesca();
   const associacoes = getAllAssociacoes();
+  const municipios = getAllMunicipios();
 
   return (
     <PageContainer>
       <PageTitle title="Editar pescador" />
       <PescadorForm pescador={pescador} />
-
+      <EnderecoDoPescadorForm
+        idPescador={pescador.id}
+        endereco={pescador.endereco}
+        municipios={municipios}
+      />
       <ArtesPescaCard
         idPescador={pescador.id}
         artesDoPescador={pescador.artes_pesca}
@@ -59,7 +63,10 @@ export default async function Page({
         associacoesDoPescador={pescador.associacoes}
         todasAssociacoes={associacoes}
       />
-      <TelefoneCard pescadorId={Number(id)} telefones={pescador.telefones} />
+      <TelefoneCard
+        pescadorId={Number(id)}
+        telefones={pescador.telefones}
+      />
       <DependentesCard
         idPescador={pescador.id}
         dependentes={pescador.dependentes}

@@ -6,6 +6,7 @@ import { TelefoneData } from "./telefone";
 import { DependenteData } from "./dependente";
 import { ComunidadeData } from "./comunidade";
 import { AssociacaoData } from "./associacao";
+import { EnderecoData } from "./endereco";
 
 type PescadorBase = {
   nome: string,
@@ -42,6 +43,7 @@ export type PescadorData = PescadorBase & {
   telefones: TelefoneData[],
   dependentes: DependenteData[],
   associacoes: AssociacaoData[],
+  endereco: EnderecoData,
 };
 
 export type PescadorWriteData = PescadorBase & {
