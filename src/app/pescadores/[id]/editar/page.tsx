@@ -5,7 +5,6 @@ import PageContainer from "@/components/containers/PageContainer";
 import PescadorForm from "@/components/forms/PescadorForm";
 import PageTitle from "@/components/PageTitle";
 import TelefoneCard from "@/components/cards/TelefonesCard";
-import ReturnButton from "@/components/ReturnButton";
 import DependentesCard from "@/components/cards/DependentesCard";
 import ArtesPescaCard from "@/components/cards/ArtesPescaCard";
 import { getAllArtesPesca } from "@/actions/server/get-all-artes-pesca";
@@ -13,14 +12,20 @@ import { getAllAreasPesca } from "@/actions/server/get-all-areas-pesca";
 import AreasPescaCard from "@/components/cards/AreasPescaCard";
 import { getAllAssociacoes } from "@/actions/server/get-all-associacoes";
 import AssociacoesCard from "@/components/cards/AssociacoesCard";
+import Link from "next/link";
+import Button from "@/components/Button";
+import { MoveLeft } from "lucide-react";
 
 const tiposDependente = [
-    { value: 'conjuge_companheira', label: 'Cônjuge ou companheiro(a)' },
-    { value: 'filhos_enteados', label: 'Filhos(as) ou enteados(as)' },
-    { value: 'irmaos_netos_bisnetos', label: 'Irmãos(ãs), netos(as) ou bisnetos(as)' },
-    { value: 'pais_avos_bisavos', label: 'Pais, avós ou bisavós' },
-    { value: 'sogro', label: 'Sogro(a)' },
-    { value: 'incapazes', label: 'Incapaz(es)' },
+  { value: "conjuge_companheira", label: "Cônjuge ou companheiro(a)" },
+  { value: "filhos_enteados", label: "Filhos(as) ou enteados(as)" },
+  {
+    value: "irmaos_netos_bisnetos",
+    label: "Irmãos(ãs), netos(as) ou bisnetos(as)",
+  },
+  { value: "pais_avos_bisavos", label: "Pais, avós ou bisavós" },
+  { value: "sogro", label: "Sogro(a)" },
+  { value: "incapazes", label: "Incapaz(es)" },
 ];
 
 export default async function Page({
@@ -38,7 +43,7 @@ export default async function Page({
     <PageContainer>
       <PageTitle title="Editar pescador" />
       <PescadorForm pescador={pescador} />
-      <ReturnButton url="/pescadores" />
+
       <ArtesPescaCard
         idPescador={pescador.id}
         artesDoPescador={pescador.artes_pesca}
@@ -54,15 +59,17 @@ export default async function Page({
         associacoesDoPescador={pescador.associacoes}
         todasAssociacoes={associacoes}
       />
-      <TelefoneCard
-        pescadorId={Number(id)}
-        telefones={pescador.telefones}
-      />
+      <TelefoneCard pescadorId={Number(id)} telefones={pescador.telefones} />
       <DependentesCard
         idPescador={pescador.id}
         dependentes={pescador.dependentes}
         tiposDependente={tiposDependente}
       />
+      <Link href="/pescadores">
+        <Button icon={MoveLeft} iconPosition="left">
+          Voltar
+        </Button>
+      </Link>
     </PageContainer>
   );
 }

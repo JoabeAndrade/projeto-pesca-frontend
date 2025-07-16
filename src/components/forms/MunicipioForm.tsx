@@ -5,9 +5,10 @@ import { editMunicipio } from "@/actions/server/edit-municipio";
 import FormContainer from "../containers/FormContainer";
 import SelectInput from "../inputs/SelectInput";
 import TextInput from "../inputs/TextInput";
-import SubmitButton from "../SubmitButton";
 import { MunicipioData } from "@/types/pescadores/municipio";
 import SectionContainer from "../containers/SectionContainer";
+import Button from "../Button";
+import { Save } from "lucide-react";
 
 const ufs = [
   { sigla: "AC", nome: "Acre" },
@@ -44,31 +45,35 @@ type MunicipioFormProps = {
 };
 
 export default function MunicipioForm({ municipio }: MunicipioFormProps) {
-  const ufOptions = ufs.map(
-    ({ nome, sigla }) => ({ value: sigla, text: `${nome} (${sigla})` })
-  );
+  const ufOptions = ufs.map(({ nome, sigla }) => ({
+    value: sigla,
+    text: `${nome} (${sigla})`,
+  }));
 
-  const action = (typeof municipio === 'undefined') ? createMunicipio : editMunicipio;
+  const action =
+    typeof municipio === "undefined" ? createMunicipio : editMunicipio;
 
   return (
     <FormContainer action={action}>
       <input type="hidden" name="id" value={municipio?.id} />
       <SectionContainer>
-      <TextInput
-        label="Nome do município"
-        name="nome"
-        value={municipio?.nome}
-        required={true}
-      />
-      <SelectInput
-        label="Unidade da Federação"
-        id="uf"
-        options={ufOptions}
-        initialValue={municipio?.uf}
-        required={true}
-      />
+        <TextInput
+          label="Nome do município"
+          name="nome"
+          value={municipio?.nome}
+          required={true}
+        />
+        <SelectInput
+          label="Unidade da Federação"
+          id="uf"
+          options={ufOptions}
+          initialValue={municipio?.uf}
+          required={true}
+        />
       </SectionContainer>
-      <SubmitButton />
+      <Button icon={Save} type="submit">
+        Salvar
+      </Button>
     </FormContainer>
   );
 }

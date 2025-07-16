@@ -8,8 +8,6 @@ interface CardFormProps {
 
 export default function CardContainer({ children }: CardFormProps) {
   return (
-    <div className="bg-white shadow-md rounded-md p-6">
-      {children}
-    </div>
+    <div className="bg-white shadow-md rounded-md p-6 my-10">{children}</div>
   );
 }

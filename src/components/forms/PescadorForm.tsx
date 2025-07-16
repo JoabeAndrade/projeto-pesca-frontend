@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useActionState, useEffect, useState } from "react";
@@ -6,7 +7,6 @@ import FormContainer from "../containers/FormContainer";
 import SectionContainer from "../containers/SectionContainer";
 import TextInput from "../inputs/TextInput";
 import SelectInput from "../inputs/SelectInput";
-import SubmitButton from "../SubmitButton";
 import DateInput from "../inputs/DateInput";
 import RadioInput from "../inputs/RadioInput";
 import BooleanInput from "../inputs/BooleanInput";
@@ -17,6 +17,8 @@ import { getAllColonias } from "@/actions/server/get-all-colonias";
 import { PescadorData } from "@/types/pescadores/pescador";
 import { editPescador } from "@/actions/server/edit-pescador";
 import { NewSelectInput } from "../inputs/NewSelectInput";
+import Button from "../Button";
+import { Save } from "lucide-react";
 
 type Option = {
   label: string;
@@ -63,40 +65,79 @@ export default function PescadorForm({ pescador }: PescadorFormProps) {
   const [optionsColonia, setOptionsColonia] = useState<Option[]>([]);
   const [optionsComunidade, setOptionsComunidade] = useState<Option[]>([]);
 
-  const [ selectedNaturalidade, setSelectedNaturalidade ] = useState(pescador?.naturalidade?.id.toString());
-  const [ selectedColonia, setSelectedColonia ] = useState(pescador?.colonia?.id.toString());
-  const [ selectedComunidade, setSelectedComunidade ] = useState(pescador?.comunidade?.id.toString());
+  const [selectedNaturalidade, setSelectedNaturalidade] = useState(
+    pescador?.naturalidade?.id.toString()
+  );
+  const [selectedColonia, setSelectedColonia] = useState(
+    pescador?.colonia?.id.toString()
+  );
+  const [selectedComunidade, setSelectedComunidade] = useState(
+    pescador?.comunidade?.id.toString()
+  );
 
-  const action = (typeof pescador === 'undefined') ? createPescador : editPescador;
+  const action =
+    typeof pescador === "undefined" ? createPescador : editPescador;
   const [status, formAction] = useActionState(action, initialState);
+
+  // Wrapper para converter a action em Promise
+  const handleSubmit = async (formData: FormData): Promise<void> => {
+    formAction(formData);
+  };
+
+  // Função para limpar o formulário
+  const clearForm = () => {
+    setSelectedNaturalidade(undefined);
+    setSelectedColonia(undefined);
+    setSelectedComunidade(undefined);
+
+    // Limpar campos do formulário
+    const form = document.querySelector("form");
+    if (form) {
+      form.reset();
+    }
+  };
 
   useEffect(() => {
     getAllMunicipios().then((response) => {
-      const opts = response.map(
-        ({ id, nome, uf }) => ({ label: `${nome}/${uf}`, value: id.toString() })
-      );
+      const opts = response.map(({ id, nome, uf }) => ({
+        label: `${nome}/${uf}`,
+        value: id.toString(),
+      }));
       setOptionsNaturalidade(opts);
     });
 
     getAllColonias().then((response) => {
-      const opts = response.map(
-        ({ id, codigo }) => ({ label: codigo, value: id.toString() })
-      );
+      const opts = response.map(({ id, codigo }) => ({
+        label: codigo,
+        value: id.toString(),
+      }));
       setOptionsColonia(opts);
     });
 
     getAllComunidades().then((response) => {
-      const opts = response.map(
-        ({ id, nome }) => ({ label: nome, value: id.toString() })
-      );
+      const opts = response.map(({ id, nome }) => ({
+        label: nome,
+        value: id.toString(),
+      }));
       setOptionsComunidade(opts);
     });
   }, []);
 
-  useEffect(() => (console.log(status)), [status]);
+  useEffect(() => {
+    console.log(status);
+
+    // Limpar formulário apenas na criação (não na edição) e quando foi bem-sucedido
+    if (
+      typeof pescador === "undefined" &&
+      status.message &&
+      !status.errors?.length
+    ) {
+      clearForm();
+    }
+  }, [status]);
 
   return (
-    <FormContainer action={formAction}>
+    <FormContainer action={handleSubmit}>
       <input type="hidden" name="id" value={pescador?.id} />
       <SectionContainer title="Dados pessoais">
         <TextInput
@@ -111,11 +152,7 @@ export default function PescadorForm({ pescador }: PescadorFormProps) {
           options={optionsSexo}
           initialValue={pescador?.sexo}
         />
-        <TextInput
-          label="Apelido"
-          name="apelido"
-          value={pescador?.apelido}
-        />
+        <TextInput label="Apelido" name="apelido" value={pescador?.apelido} />
         <DateInput
           label="Data de nascimento"
           name="data_nascimento"
@@ -166,16 +203,8 @@ export default function PescadorForm({ pescador }: PescadorFormProps) {
         />
       </SectionContainer>
       <SectionContainer title="Documentos">
-        <TextInput
-          label="RG"
-          name="rg"
-          value={pescador?.rg}
-        />
-        <TextInput
-          label="CPF"
-          name="cpf"
-          value={pescador?.cpf}
-        />
+        <TextInput label="RG" name="rg" value={pescador?.rg} />
+        <TextInput label="CPF" name="cpf" value={pescador?.cpf} />
       </SectionContainer>
       <SectionContainer title="Embarcação">
         <RadioInput
@@ -231,7 +260,9 @@ export default function PescadorForm({ pescador }: PescadorFormProps) {
           defaultValue={pescador?.data_cadastramento}
         />
       </SectionContainer>
-      <SubmitButton />
+      <Button icon={Save} type="submit">
+        Salvar
+      </Button>
     </FormContainer>
   );
 }

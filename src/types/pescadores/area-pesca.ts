@@ -1,4 +1,4 @@
 export type AreaPescaData = {
-  id: number,
-  descricao: string,
-}
+  id: number;
+  descricao: string;
+};

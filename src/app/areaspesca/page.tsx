@@ -3,12 +3,15 @@ import ListItemButtonSet from "@/components/ListItemButtonSet";
 import { AreaPescaData } from "@/types/pescadores/area-pesca";
 
 export default async function Page() {
-  const data = await fetch('http://localhost:8000/areaspesca');
+  const data = await fetch("http://localhost:8000/areaspesca");
   const areasPesca = await data.json();
 
   return (
     <div>
-      <HeaderTitle title='Perfil Social / Áreas de Pesca' urlNovo='areaspesca/novo' />
+      <HeaderTitle
+        title="Perfil Social / Áreas de Pesca"
+        urlNovo="areaspesca/novo"
+      />
       <div className="px-8 w-full mx-auto">
         <div className="flex flex-row h-20 items-center border-t border-b border-gray-300">
           <div className="flex-1">
@@ -23,7 +26,10 @@ export default async function Page() {
         </div>
 
         {areasPesca.map((areaPesca: AreaPescaData, index: number) => (
-          <div className="flex flex-row h-20 items-center border-t border-gray-300" key={index}>
+          <div
+            className="flex flex-row h-20 items-center border-t border-gray-300"
+            key={index}
+          >
             <div className="flex-1">
               <h1>{areaPesca.id}</h1>
             </div>

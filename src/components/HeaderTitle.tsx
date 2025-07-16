@@ -7,12 +7,14 @@ type HeaderTitleProps = {
   urlNovo: string;
 };
 
-export default function HeaderTitle(props: HeaderTitleProps) {
+export default function HeaderTitle({ title, urlNovo }: HeaderTitleProps) {
   return (
-    <div className="flex flex-row w-full h-14 justify-between items-center px-8 my-4">
-      <h1 className="text-black text-4xl">{props.title}</h1>
-      <Link href={props.urlNovo}>
-        <Button icon={Plus}>NOVO</Button>
+    <div className="flex flex-col md:flex-row w-full h-auto md:h-14 justify-between items-start md:items-center px-4 sm:px-8 my-4 gap-3 md:gap-0">
+      <h1 className="text-black text-3xl sm:text-4xl font-semibold">{title}</h1>
+      <Link href={urlNovo}>
+        <Button icon={Plus} className="w-full md:w-auto">
+          NOVO
+        </Button>
       </Link>
     </div>
   );

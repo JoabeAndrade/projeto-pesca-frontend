@@ -5,6 +5,7 @@ import Button from "./Button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 type PropsListItemButtonSet = {
   urlDelete: string;
@@ -13,30 +14,32 @@ type PropsListItemButtonSet = {
 };
 
 export default function ListItemButtonSet(props: PropsListItemButtonSet) {
-    const router = useRouter();
-    const [showModal, setShowModal] = useState(false);
-  
-    async function handleDelete() {
-      try {
-        const res = await fetch(props.urlDelete, {method: "DELETE"});
-  
-        if (res.ok) {
-          toast.success("Deletado com sucesso!");
-          setShowModal(false);
-          router.refresh();
-        } else {
-          toast.error("Erro ao deletar.");
-        }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (error) {
-        toast.error("Erro de conexão com o servidor.");
+  const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
+
+  async function handleDelete() {
+    try {
+      const res = await fetch(props.urlDelete, { method: "DELETE" });
+
+      if (res.ok) {
+        toast.success("Deletado com sucesso!");
+        setShowModal(false);
+        router.refresh();
+      } else {
+        toast.error("Erro ao deletar.");
       }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toast.error("Erro de conexão com o servidor.");
     }
+  }
 
   return (
     <>
       <div className="w-24 flex flex-row items-center justify-center">
-        <Button icon={Pencil} className="rounded-full bg-[#6d4c41] mx-2" />
+        <Link href={props.urlEdit}>
+          <Button icon={Pencil} className="rounded-full bg-[#6d4c41] mx-2" />
+        </Link>
         <Button
           icon={Trash}
           className="rounded-full bg-[#e53935] mx-2"

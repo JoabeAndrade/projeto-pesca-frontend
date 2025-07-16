@@ -3,6 +3,8 @@ import ComunidadeForm from "@/components/forms/ComunidadeForm";
 import PageContainer from "@/components/containers/PageContainer";
 import PageTitle from "@/components/PageTitle";
 import Link from "next/link";
+import Button from "@/components/Button";
+import { MoveLeft } from "lucide-react";
 
 export default async function Page() {
   const municipios = getAllMunicipios();
@@ -10,10 +12,12 @@ export default async function Page() {
   return (
     <PageContainer>
       <PageTitle title="Inserir comunidade" />
-      <ComunidadeForm
-        municipios={municipios}
-      />
-      <Link href="/comunidades">VOLTAR</Link>
+      <ComunidadeForm municipios={municipios} />
+      <Link href="/comunidades">
+        <Button icon={MoveLeft} iconPosition="left">
+          Voltar
+        </Button>
+      </Link>
     </PageContainer>
   );
 }

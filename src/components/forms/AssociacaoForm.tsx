@@ -2,17 +2,19 @@
 
 import { createAssociacao } from "@/actions/server/create-associacao";
 import FormContainer from "../containers/FormContainer";
-import SubmitButton from "../SubmitButton";
 import TextInput from "../inputs/TextInput";
 import { AssociacaoData } from "@/types/pescadores/associacao";
 import { editAssociacao } from "@/actions/server/edit-associacao";
+import Button from "../Button";
+import { Save } from "lucide-react";
 
 type AssociacaoFormProps = {
   associacao?: AssociacaoData;
-}
+};
 
 export default function AssociacaoForm({ associacao }: AssociacaoFormProps) {
-  const action = (typeof associacao === "undefined") ? createAssociacao : editAssociacao;
+  const action =
+    typeof associacao === "undefined" ? createAssociacao : editAssociacao;
 
   return (
     <FormContainer action={action}>
@@ -23,7 +25,9 @@ export default function AssociacaoForm({ associacao }: AssociacaoFormProps) {
         value={associacao?.nome}
         required={true}
       />
-      <SubmitButton />
+      <Button icon={Save} type="submit">
+        Salvar
+      </Button>
     </FormContainer>
   );
 }
