@@ -22,6 +22,7 @@ export function extractDataFromPescadorForm(formData: FormData) {
     ativo: formData.get("ativo") || null,
     motivo_inatividade: formData.get("motivo_inatividade"),
     data_cadastramento: (formData.get("data_cadastramento") || null),
+    porto_desembarque_principal: 1,
   };
 
   console.log(data);

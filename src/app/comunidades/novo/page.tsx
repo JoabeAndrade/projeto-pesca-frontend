@@ -1,4 +1,4 @@
-import { getAllMunicipios } from "@/actions/server/get-all-municipios";
+import { getAllMunicipios } from "@/actions/municipio/get-all-municipios";
 import ComunidadeForm from "@/components/forms/ComunidadeForm";
 import PageContainer from "@/components/containers/PageContainer";
 import PageTitle from "@/components/PageTitle";

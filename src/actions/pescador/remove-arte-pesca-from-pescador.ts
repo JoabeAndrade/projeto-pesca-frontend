@@ -1,6 +1,6 @@
 "use server";
 
-import fetchData from "./fetch-data";
+import fetchData from "../fetch-data";
 
 export async function removeArtePescaFromPescador(idPescador: number, idArtePesca: number): Promise<void> {
   const data = {

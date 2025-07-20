@@ -5,8 +5,8 @@ import CardContainer from "../containers/CardContainer";
 import CardHeader from "./CardHeader";
 import { Building2 } from "lucide-react";
 import { use } from "react";
-import { addAssociacaoToPescador } from "@/actions/server/add-associacao-to-pescador";
-import { removeAssociacaoFromPescador } from "@/actions/server/remove-associacao-from-pescador";
+import { addAssociacaoToPescador } from "@/actions/pescador/add-associacao-to-pescador";
+import { removeAssociacaoFromPescador } from "@/actions/pescador/remove-associacao-from-pescador";
 
 type AssociacoesCardProps = {
   idPescador: number;

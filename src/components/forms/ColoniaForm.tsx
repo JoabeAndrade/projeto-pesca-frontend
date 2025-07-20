@@ -1,10 +1,10 @@
 "use client";
 
-import { createColonia } from "@/actions/server/create-colonia";
+import { createColonia } from "@/actions/colonia/create-colonia";
 import FormContainer from "../containers/FormContainer";
 import TextInput from "../inputs/TextInput";
 import { ColoniaData } from "@/types/pescadores/colonia";
-import { editColonia } from "@/actions/server/edit-colonia";
+import { editColonia } from "@/actions/colonia/edit-colonia";
 import { ComunidadeData } from "@/types/pescadores/comunidade";
 import { useEffect, useState } from "react";
 import { NewSelectInput } from "../inputs/NewSelectInput";

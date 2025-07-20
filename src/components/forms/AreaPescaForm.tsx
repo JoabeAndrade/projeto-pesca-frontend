@@ -1,7 +1,7 @@
 "use client";
 
-import { createAreaPesca } from "@/actions/server/create-area-pesca";
-import { editAreaPesca } from "@/actions/server/edit-area-pesca";
+import { createAreaPesca } from "@/actions/areapesca/create-area-pesca";
+import { editAreaPesca } from "@/actions/areapesca/edit-area-pesca";
 import FormContainer from "../containers/FormContainer";
 import TextInput from "../inputs/TextInput";
 import Button from "../Button";

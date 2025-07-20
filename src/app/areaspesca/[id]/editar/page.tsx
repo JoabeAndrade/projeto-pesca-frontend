@@ -2,7 +2,7 @@ import AreaPescaForm from "@/components/forms/AreaPescaForm";
 import PageContainer from "@/components/containers/PageContainer";
 import PageTitle from "@/components/PageTitle";
 import Link from "next/link";
-import getAreaPesca from "@/actions/server/get-area-pesca";
+import getAreaPesca from "@/actions/areapesca/get-area-pesca";
 import { MoveLeft } from "lucide-react";
 import Button from "@/components/Button";
 

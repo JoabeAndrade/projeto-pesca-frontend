@@ -2,7 +2,7 @@ import ArtePescaForm from "@/components/forms/ArtePescaForm";
 import PageContainer from "@/components/containers/PageContainer";
 import PageTitle from "@/components/PageTitle";
 import Link from "next/link";
-import getArtePesca from "@/actions/server/get-arte-pesca";
+import getArtePesca from "@/actions/artepesca/get-arte-pesca";
 import { MoveLeft } from "lucide-react";
 import Button from "@/components/Button";
 

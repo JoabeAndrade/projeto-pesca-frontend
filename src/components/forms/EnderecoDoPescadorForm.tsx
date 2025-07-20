@@ -3,8 +3,8 @@
 import { EnderecoData } from "@/types/pescadores/endereco";
 import { MunicipioData } from "@/types/pescadores/municipio";
 import FormContainer from "../containers/FormContainer";
-import { addEnderecoToPescador } from "@/actions/server/add-endereco-to-pescador";
-import { editEndereco } from "@/actions/server/edit-endereco";
+import { addEnderecoToPescador } from "@/actions/pescador/add-endereco-to-pescador";
+import { editEndereco } from "@/actions/endereco/edit-endereco";
 import Button from "../Button";
 import { Save } from "lucide-react";
 import SectionContainer from "../containers/SectionContainer";

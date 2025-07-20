@@ -1,7 +1,7 @@
 "use client";
 
-import { createMunicipio } from "@/actions/server/create-municipio";
-import { editMunicipio } from "@/actions/server/edit-municipio";
+import { createMunicipio } from "@/actions/municipio/create-municipio";
+import { editMunicipio } from "@/actions/municipio/edit-municipio";
 import FormContainer from "../containers/FormContainer";
 import SelectInput from "../inputs/SelectInput";
 import TextInput from "../inputs/TextInput";

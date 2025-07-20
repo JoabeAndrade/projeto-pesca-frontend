@@ -1,5 +1,5 @@
 import { ComunidadeData } from "@/types/pescadores/comunidade";
-import fetchData from "./fetch-data";
+import fetchData from "../fetch-data";
 
 export default async function getComunidade(id: string): Promise<ComunidadeData> {
   const url = `/comunidades/${id}`;

@@ -1,7 +1,7 @@
 "use server";
 
-import { getAllMunicipios } from "@/actions/server/get-all-municipios";
-import getComunidade from "@/actions/server/get-comunidade";
+import { getAllMunicipios } from "@/actions/municipio/get-all-municipios";
+import getComunidade from "@/actions/comunidade/get-comunidade";
 import Button from "@/components/Button";
 import PageContainer from "@/components/containers/PageContainer";
 import ComunidadeForm from "@/components/forms/ComunidadeForm";

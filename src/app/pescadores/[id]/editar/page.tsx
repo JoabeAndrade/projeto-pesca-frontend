@@ -1,21 +1,21 @@
 "use server";
 
-import getPescador from "@/actions/server/get-pescador";
+import getPescador from "@/actions/pescador/get-pescador";
 import PageContainer from "@/components/containers/PageContainer";
 import PescadorForm from "@/components/forms/PescadorForm";
 import PageTitle from "@/components/PageTitle";
 import TelefoneCard from "@/components/cards/TelefonesCard";
 import DependentesCard from "@/components/cards/DependentesCard";
 import ArtesPescaCard from "@/components/cards/ArtesPescaCard";
-import { getAllArtesPesca } from "@/actions/server/get-all-artes-pesca";
-import { getAllAreasPesca } from "@/actions/server/get-all-areas-pesca";
+import { getAllArtesPesca } from "@/actions/artepesca/get-all-artes-pesca";
+import { getAllAreasPesca } from "@/actions/areapesca/get-all-areas-pesca";
 import AreasPescaCard from "@/components/cards/AreasPescaCard";
-import { getAllAssociacoes } from "@/actions/server/get-all-associacoes";
+import { getAllAssociacoes } from "@/actions/associacao/get-all-associacoes";
 import AssociacoesCard from "@/components/cards/AssociacoesCard";
 import Link from "next/link";
 import Button from "@/components/Button";
 import { MoveLeft } from "lucide-react";
-import { getAllMunicipios } from "@/actions/server/get-all-municipios";
+import { getAllMunicipios } from "@/actions/municipio/get-all-municipios";
 import EnderecoGenericForm from "@/components/forms/EnderecoGenericForm";
 
 const tiposDependente = [

@@ -1,10 +1,10 @@
 "use client";
 
-import { createAssociacao } from "@/actions/server/create-associacao";
+import { createAssociacao } from "@/actions/associacao/create-associacao";
 import FormContainer from "../containers/FormContainer";
 import TextInput from "../inputs/TextInput";
 import { AssociacaoData } from "@/types/pescadores/associacao";
-import { editAssociacao } from "@/actions/server/edit-associacao";
+import { editAssociacao } from "@/actions/associacao/edit-associacao";
 import Button from "../Button";
 import { Save } from "lucide-react";
 

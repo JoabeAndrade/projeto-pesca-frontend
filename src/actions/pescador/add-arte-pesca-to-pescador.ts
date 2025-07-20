@@ -1,6 +1,6 @@
 "use server";
 
-import fetchData from "./fetch-data";
+import fetchData from "../fetch-data";
 
 export async function addArtePescaToPescador(formData: FormData): Promise<void> {
   const idPescador = formData.get("pescador_id");

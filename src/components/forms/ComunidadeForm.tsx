@@ -1,11 +1,11 @@
 "use client";
 
-import { createComunidade } from "@/actions/server/create-comunidade";
+import { createComunidade } from "@/actions/comunidade/create-comunidade";
 import FormContainer from "../containers/FormContainer";
 import TextInput from "../inputs/TextInput";
 import { MunicipioData } from "@/types/pescadores/municipio";
 import { ComunidadeData } from "@/types/pescadores/comunidade";
-import { editComunidade } from "@/actions/server/edit-comunidade";
+import { editComunidade } from "@/actions/comunidade/edit-comunidade";
 import { useEffect, useState } from "react";
 import { NewSelectInput } from "../inputs/NewSelectInput";
 import Button from "../Button";

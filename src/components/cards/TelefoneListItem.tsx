@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteItem } from "@/actions/server/delete-item";
+import { deleteItem } from "@/actions/delete-item";
 import { TelefoneData } from "@/types/pescadores/telefone";
 
 type TelefoneListItemProps = {

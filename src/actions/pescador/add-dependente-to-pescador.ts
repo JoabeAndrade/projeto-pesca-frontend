@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import fetchData from "./fetch-data";
+import fetchData from "../fetch-data";
 
 export async function createDependente(formData: FormData): Promise<void> {
   const data = {

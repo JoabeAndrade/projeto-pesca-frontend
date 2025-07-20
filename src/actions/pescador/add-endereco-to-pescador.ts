@@ -1,7 +1,7 @@
 "use server";
 
 import { EnderecoData } from "@/types/pescadores/endereco";
-import fetchData from "./fetch-data";
+import fetchData from "@/actions/fetch-data";
 import { PescadorData } from "@/types/pescadores/pescador";
 
 export async function addEnderecoToPescador(formData: FormData): Promise<void> {
@@ -20,7 +20,7 @@ export async function addEnderecoToPescador(formData: FormData): Promise<void> {
     method: "POST",
     body: JSON.stringify(data),
   })
-    .then((endereco) => {
+    .then((endereco: EnderecoData) => {
       const idEndereco = endereco.id;
       fetchData<PescadorData>({
         url: `/pescadores/${idPescador}`,

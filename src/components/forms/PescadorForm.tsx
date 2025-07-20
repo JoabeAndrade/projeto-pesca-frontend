@@ -2,7 +2,7 @@
 "use client";
 
 import { useActionState, useEffect, useState } from "react";
-import { createPescador } from "@/actions/server/create-pescador";
+import { createPescador } from "@/actions/pescador/create-pescador";
 import FormContainer from "../containers/FormContainer";
 import SectionContainer from "../containers/SectionContainer";
 import TextInput from "../inputs/TextInput";
@@ -11,11 +11,11 @@ import DateInput from "../inputs/DateInput";
 import RadioInput from "../inputs/RadioInput";
 import BooleanInput from "../inputs/BooleanInput";
 import DecimalInput from "../inputs/DecimalInput";
-import { getAllMunicipios } from "@/actions/server/get-all-municipios";
-import { getAllComunidades } from "@/actions/server/get-all-comunidades";
-import { getAllColonias } from "@/actions/server/get-all-colonias";
+import { getAllMunicipios } from "@/actions/municipio/get-all-municipios";
+import { getAllComunidades } from "@/actions/comunidade/get-all-comunidades";
+import { getAllColonias } from "@/actions/colonia/get-all-colonias";
 import { PescadorData } from "@/types/pescadores/pescador";
-import { editPescador } from "@/actions/server/edit-pescador";
+import { editPescador } from "@/actions/pescador/edit-pescador";
 import { NewSelectInput } from "../inputs/NewSelectInput";
 import Button from "../Button";
 import { Save } from "lucide-react";

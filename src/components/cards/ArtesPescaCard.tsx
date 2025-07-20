@@ -1,12 +1,12 @@
 "use client";
 
-import { addArtePescaToPescador } from "@/actions/server/add-arte-pesca-to-pescador";
+import { addArtePescaToPescador } from "@/actions/pescador/add-arte-pesca-to-pescador";
 import CardContainer from "../containers/CardContainer";
 import CardHeader from "./CardHeader";
 import { ArtePescaData } from "@/types/pescadores/arte-pesca";
 import { Fish } from "lucide-react";
 import { useEffect, useState } from "react";
-import { removeArtePescaFromPescador } from "@/actions/server/remove-arte-pesca-from-pescador";
+import { removeArtePescaFromPescador } from "@/actions/pescador/remove-arte-pesca-from-pescador";
 
 type Option = {
   value: string,

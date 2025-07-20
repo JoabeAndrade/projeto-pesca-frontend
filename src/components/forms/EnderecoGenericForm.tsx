@@ -9,11 +9,11 @@ import SectionContainer from "../containers/SectionContainer";
 import TextInput from "../inputs/TextInput";
 import { NewSelectInput } from "../inputs/NewSelectInput";
 import { MunicipioData } from "@/types/pescadores/municipio";
-import { editEndereco } from "@/actions/server/edit-endereco";
-import { createEndereco } from "@/actions/server/create-endereco";
-import { addEnderecoToAssociacao } from "@/actions/server/add-endereco-to-associacao";
-import { addEnderecoToColonia } from "@/actions/server/add-endereco-to-colonia";
-import fetchData from "@/actions/server/fetch-data";
+import { editEndereco } from "@/actions/endereco/edit-endereco";
+import { createEndereco } from "@/actions/endereco/create-endereco";
+import { addEnderecoToAssociacao } from "@/actions/associacao/add-endereco-to-associacao";
+import { addEnderecoToColonia } from "@/actions/colonia/add-endereco-to-colonia";
+import fetchData from "@/actions/fetch-data";
 
 type EnderecoGenericFormProps = {
   endereco?: EnderecoData;

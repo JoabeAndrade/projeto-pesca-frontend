@@ -1,4 +1,4 @@
-import { getMunicipio } from "@/actions/server/get-municipio";
+import { getMunicipio } from "@/actions/municipio/get-municipio";
 import MunicipioForm from "@/components/forms/MunicipioForm";
 import PageContainer from "@/components/containers/PageContainer";
 import PageTitle from "@/components/PageTitle";

@@ -1,8 +1,8 @@
-import { createTelefone } from "@/actions/server/create-telefone";
+import { addTelefoneToPescador } from "@/actions/pescador/add-telefone-to-pescador";
 
 export default function TelefoneForm({ pescadorId }: {pescadorId: number}) {
   return (
-    <form action={createTelefone}>
+    <form action={addTelefoneToPescador}>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
         <input type="hidden" name="pescador_id" value={pescadorId} />
         <div>

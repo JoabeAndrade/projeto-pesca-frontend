@@ -4,8 +4,8 @@ import { DependenteData } from "@/types/pescadores/dependente"
 import { House } from "lucide-react";
 import CardContainer from "../containers/CardContainer";
 import CardHeader from "./CardHeader";
-import { createDependente } from "@/actions/server/create-dependente";
-import { deleteItem } from "@/actions/server/delete-item";
+import { createDependente } from "@/actions/pescador/add-dependente-to-pescador";
+import { deleteItem } from "@/actions/delete-item";
 
 type Option = {
   value: string,

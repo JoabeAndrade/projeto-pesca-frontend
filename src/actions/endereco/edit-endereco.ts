@@ -1,6 +1,6 @@
 "use server";
 
-import fetchData from "./fetch-data";
+import fetchData from "@/actions/fetch-data";
 
 export async function editEndereco(formData: FormData): Promise<void> {
   const idEndereco = formData.get("endereco_id");

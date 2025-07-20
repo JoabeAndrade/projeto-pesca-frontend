@@ -1,6 +1,6 @@
 "use server";
 
-import fetchData from "./fetch-data";
+import fetchData from "../fetch-data";
 import { AssociacaoData } from "@/types/pescadores/associacao";
 
 export async function addEnderecoToAssociacao(

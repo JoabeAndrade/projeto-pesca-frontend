@@ -1,6 +1,6 @@
-import { getAllComunidades } from "@/actions/server/get-all-comunidades";
-import { getAllMunicipios } from "@/actions/server/get-all-municipios";
-import getColonia from "@/actions/server/get-colonia";
+import { getAllComunidades } from "@/actions/comunidade/get-all-comunidades";
+import { getAllMunicipios } from "@/actions/municipio/get-all-municipios";
+import getColonia from "@/actions/colonia/get-colonia";
 import Button from "@/components/Button";
 import PageContainer from "@/components/containers/PageContainer";
 import ColoniaForm from "@/components/forms/ColoniaForm";

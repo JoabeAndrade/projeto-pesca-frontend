@@ -1,6 +1,6 @@
 "use server";
 
-import fetchData from "./fetch-data";
+import fetchData from "../fetch-data";
 
 export async function createColonia(formData: FormData): Promise<void> {
   const data = {

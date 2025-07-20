@@ -1,7 +1,7 @@
 "use server";
 
 import { EnderecoData } from "@/types/pescadores/endereco";
-import fetchData from "./fetch-data";
+import fetchData from "@/actions/fetch-data";
 
 export async function createEndereco(formData: FormData): Promise<EnderecoData> {
   const data = {

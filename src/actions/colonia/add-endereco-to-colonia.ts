@@ -1,5 +1,5 @@
 import { ColoniaData } from "@/types/pescadores/colonia";
-import fetchData from "./fetch-data";
+import fetchData from "../fetch-data";
 
 export async function addEnderecoToColonia(
   idColonia: number,

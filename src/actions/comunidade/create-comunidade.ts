@@ -1,6 +1,6 @@
 "use server";
 
-import fetchData from "./fetch-data";
+import fetchData from "../fetch-data";
 
 export async function createComunidade(formData: FormData): Promise<void> {
   const data = {

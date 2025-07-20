@@ -1,7 +1,7 @@
 "use server";
 
-import { getAllMunicipios } from "@/actions/server/get-all-municipios";
-import { getAssociacao } from "@/actions/server/get-associacao";
+import { getAllMunicipios } from "@/actions/municipio/get-all-municipios";
+import { getAssociacao } from "@/actions/associacao/get-associacao";
 import Button from "@/components/Button";
 import PageContainer from "@/components/containers/PageContainer";
 import AssociacaoForm from "@/components/forms/AssociacaoForm";

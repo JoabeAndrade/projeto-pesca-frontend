@@ -5,8 +5,8 @@ import CardContainer from "../containers/CardContainer";
 import { Waves } from "lucide-react";
 import CardHeader from "./CardHeader";
 import { useEffect, useState } from "react";
-import { removeAreaPescaFromPescador } from "@/actions/server/remove-area-pesca-from-pescador";
-import { addAreaPescaToPescador } from "@/actions/server/add-area-pesca-to-pescador";
+import { removeAreaPescaFromPescador } from "@/actions/pescador/remove-area-pesca-from-pescador";
+import { addAreaPescaToPescador } from "@/actions/pescador/add-area-pesca-to-pescador";
 
 type AreasPescaCardProps = {
   idPescador: number,
