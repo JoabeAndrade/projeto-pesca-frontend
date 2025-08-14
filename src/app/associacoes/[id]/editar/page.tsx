@@ -1,5 +1,3 @@
-"use server";
-
 import { getAllMunicipios } from "@/actions/municipio/get-all-municipios";
 import { getAssociacao } from "@/actions/associacao/get-associacao";
 import Button from "@/components/Button";

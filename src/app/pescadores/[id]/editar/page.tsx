@@ -1,5 +1,3 @@
-"use server";
-
 import getPescador from "@/actions/pescador/get-pescador";
 import PageContainer from "@/components/containers/PageContainer";
 import PescadorForm from "@/components/forms/PescadorForm";
