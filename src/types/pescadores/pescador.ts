@@ -1,3 +1,5 @@
+// Arquivo: src/types/pescadores/pescador.ts (Corrigido)
+
 import { MunicipioData } from "./municipio";
 import { ColoniaData } from "./colonia";
 import { ArtePescaData } from "./arte-pesca";
@@ -8,46 +10,62 @@ import { ComunidadeData } from "./comunidade";
 import { AssociacaoData } from "./associacao";
 import { EnderecoData } from "./endereco";
 
+// Adicionei estes tipos que estavam faltando, baseados no uso
+type PortoData = {
+  id: number;
+  nome: string;
+};
+
+type ProjetoData = {
+  id: number;
+  nome: string;
+};
+
 type PescadorBase = {
-  nome: string,
-  sexo: string,
-  apelido: string,
-  data_nascimento: string,
-  nome_pai: string,
-  nome_mae: string,
-  matricula_colonia: string,
-  data_inscricao_colonia: string,
-  rg: string,
-  cpf: string,
-  tipo_embarcacao: string,
-  proprietario_embarcacao: boolean,
-  tamanho_embarcacao: string,
-  escolaridade: string,
-  renda_mensal_pesca: string,
-  outra_renda: string,
-  ativo: boolean,
-  motivo_inatividade: string,
-  falecido: boolean,
-  data_cadastramento: string,
+  nome: string;
+  sexo: string;
+  apelido: string;
+  data_nascimento: string;
+  nome_pai: string;
+  nome_mae: string;
+  matricula_colonia: string;
+  data_inscricao_colonia: string;
+  rg: string;
+  cpf: string;
+  tipo_embarcacao: string;
+  proprietario_embarcacao: boolean;
+  tamanho_embarcacao: string;
+  escolaridade: string;
+  renda_mensal_pesca: string;
+  outra_renda: string;
+  ativo: boolean;
+  motivo_inatividade: string;
+  falecido: boolean;
+  data_cadastramento: string;
 };
 
 export type PescadorData = PescadorBase & {
-  id: number,
-  cidade_natal: MunicipioData,
-  naturalidade: MunicipioData,
-  colonia_inscrita: ColoniaData,
-  colonia: ColoniaData,
-  comunidade: ComunidadeData,
-  artes_pesca: ArtePescaData[],
-  areas_pesca: AreaPescaData[],
-  telefones: TelefoneData[],
-  dependentes: DependenteData[],
-  associacoes: AssociacaoData[],
-  endereco: EnderecoData,
+  id: number;
+  cidade_natal: MunicipioData;
+  naturalidade: MunicipioData;
+  colonia_inscrita: ColoniaData;
+  colonia: ColoniaData;
+  comunidade: ComunidadeData;
+  artes_pesca: ArtePescaData[];
+  areas_pesca: AreaPescaData[];
+  telefones: TelefoneData[];
+  dependentes: DependenteData[];
+  associacoes: AssociacaoData[];
+  endereco: EnderecoData;
+
+  // --- CORREÇÃO APLICADA AQUI ---
+  // As duas propriedades que faltavam foram adicionadas como opcionais (?)
+  porto_desembarque_principal?: PortoData;
+  projeto?: ProjetoData;
 };
 
 export type PescadorWriteData = PescadorBase & {
-  naturalidade_id: number,
-  colonia_id: number,
-  comunidade_id: number,
-}
+  naturalidade_id: number;
+  colonia_id: number;
+  comunidade_id: number;
+};

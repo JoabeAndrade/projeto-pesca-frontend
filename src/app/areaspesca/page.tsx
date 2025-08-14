@@ -1,16 +1,22 @@
 import HeaderTitle from "@/components/HeaderTitle";
 import ListItemButtonSet from "@/components/ListItemButtonSet";
 import { AreaPescaData } from "@/types/pescadores/area-pesca";
+import { getAllAreasPesca } from "@/actions/areapesca/get-all-areas-pesca";
 
-export default async function Page() {
-  const data = await fetch("http://localhost:8000/areaspesca");
-  const areasPesca = await data.json();
+export const dynamic = "force-dynamic";
+
+export default async function AreasPescaPage() {
+  const areasPesca = await getAllAreasPesca();
+
+  if (!areasPesca) {
+    return <p>Não foi possível carregar os dados das áreas de pesca.</p>;
+  }
 
   return (
     <div>
       <HeaderTitle
         title="Perfil Social / Áreas de Pesca"
-        urlNovo="areaspesca/novo"
+        urlNovo="/areaspesca/novo"
       />
       <div className="px-8 w-full mx-auto">
         <div className="flex flex-row h-20 items-center border-t border-b border-gray-300">
@@ -25,10 +31,10 @@ export default async function Page() {
           </div>
         </div>
 
-        {areasPesca.map((areaPesca: AreaPescaData, index: number) => (
+        {areasPesca.map((areaPesca: AreaPescaData) => (
           <div
             className="flex flex-row h-20 items-center border-t border-gray-300"
-            key={index}
+            key={areaPesca.id}
           >
             <div className="flex-1">
               <h1>{areaPesca.id}</h1>
@@ -37,8 +43,8 @@ export default async function Page() {
               <h1>{areaPesca.descricao}</h1>
             </div>
             <ListItemButtonSet
-              urlDelete={`http://localhost:8000/areaspesca/${areaPesca.id}`}
-              urlEdit={`http://localhost:3000/areaspesca/${areaPesca.id}/editar`}
+              urlDelete={`/areaspesca/${areaPesca.id}/excluir`}
+              urlEdit={`/areaspesca/${areaPesca.id}/editar`}
               itemName={areaPesca.descricao}
             />
           </div>

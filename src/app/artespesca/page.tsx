@@ -1,18 +1,25 @@
 import HeaderTitle from "@/components/HeaderTitle";
 import ListItemButtonSet from "@/components/ListItemButtonSet";
 import { ArtePescaData } from "@/types/pescadores/arte-pesca";
+import { getAllArtesPesca } from "@/actions/artepesca/get-all-artes-pesca";
 
-export default async function Page() {
-  const data = await fetch('http://localhost:8000/artespesca');
-  const artesPesca = await data.json();
+export const dynamic = "force-dynamic";
+
+export default async function ArtesPescaPage() {
+  const artesPesca = await getAllArtesPesca();
+
+  if (!artesPesca) {
+    return <p>Não foi possível carregar os dados das artes de pesca.</p>;
+  }
 
   return (
     <div>
-      <HeaderTitle title='Perfil Social / Artes de Pesca' urlNovo='artespesca/novo'/>
+      <HeaderTitle
+        title="Perfil Social / Artes de Pesca"
+        urlNovo="/artespesca/novo"
+      />
 
-      {/* Lista */}
       <div className="px-8 w-full mx-auto">
-        {/* Header da lista */}
         <div className="flex flex-row h-20 items-center border-t border-b border-gray-300">
           <div className="flex-1">
             <h1 className="font-bold">Id</h1>
@@ -25,9 +32,11 @@ export default async function Page() {
           </div>
         </div>
 
-        {/* Itens da lista */}
-        {artesPesca.map((artePesca: ArtePescaData, index: number) => (
-          <div className="flex flex-row h-20 items-center border-t border-gray-300" key={index}>
+        {artesPesca.map((artePesca: ArtePescaData) => (
+          <div
+            className="flex flex-row h-20 items-center border-t border-gray-300"
+            key={artePesca.id}
+          >
             <div className="flex-1">
               <h1>{artePesca.id}</h1>
             </div>
@@ -35,8 +44,8 @@ export default async function Page() {
               <h1>{artePesca.nome}</h1>
             </div>
             <ListItemButtonSet
-              urlDelete={`http://localhost:8000/artespesca/${artePesca.id}`}
-              urlEdit={`http://localhost:3000/artespesca/${artePesca.id}/editar`}
+              urlDelete={`/artespesca/${artePesca.id}/excluir`}
+              urlEdit={`/artespesca/${artePesca.id}/editar`}
               itemName={artePesca.nome}
             />
           </div>

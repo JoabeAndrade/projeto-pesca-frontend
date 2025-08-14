@@ -1,18 +1,25 @@
 import HeaderTitle from "@/components/HeaderTitle";
 import ListItemButtonSet from "@/components/ListItemButtonSet";
 import { MunicipioData } from "@/types/pescadores/municipio";
+import { getAllMunicipios } from "@/actions/municipio/get-all-municipios";
 
-export default async function Page() {
-  const data = await fetch('http://localhost:8000/municipios');
-  const municipios = await data.json();
+export const dynamic = "force-dynamic";
+
+export default async function MunicipiosPage() {
+  const municipios = await getAllMunicipios();
+
+  if (!municipios) {
+    return <p>Não foi possível carregar os dados dos municípios.</p>;
+  }
 
   return (
     <div>
-      <HeaderTitle title='Perfil Social / Município' urlNovo='municipios/novo'/>
+      <HeaderTitle
+        title="Perfil Social / Município"
+        urlNovo="/municipios/novo"
+      />
 
-      {/* Lista */}
       <div className="px-8 w-full mx-auto">
-        {/* Header da lista */}
         <div className="flex flex-row h-20 items-center border-t border-b border-gray-300">
           <div className="flex-1">
             <h1 className="font-bold">Id</h1>
@@ -28,9 +35,11 @@ export default async function Page() {
           </div>
         </div>
 
-        {/* Itens da lista */}
-        {municipios.map((municipio: MunicipioData, index: number) => (
-          <div className="flex flex-row h-20 items-center border-t border-gray-300" key={index}>
+        {municipios.map((municipio: MunicipioData) => (
+          <div
+            className="flex flex-row h-20 items-center border-t border-gray-300"
+            key={municipio.id}
+          >
             <div className="flex-1">
               <h1>{municipio.id}</h1>
             </div>
@@ -40,11 +49,13 @@ export default async function Page() {
             <div className="flex-1">
               <h1>{municipio.uf}</h1>
             </div>
-            <ListItemButtonSet
-              urlDelete={`http://localhost:8000/municipios/${municipio.id}`}
-              urlEdit={`http://localhost:3000/municipios/${municipio.id}/editar`}
-              itemName={municipio.nome}
-            />
+            <div className="w-24 flex items-center justify-center">
+              <ListItemButtonSet
+                urlDelete={`/municipios/${municipio.id}/excluir`}
+                urlEdit={`/municipios/${municipio.id}/editar`}
+                itemName={municipio.nome}
+              />
+            </div>
           </div>
         ))}
       </div>

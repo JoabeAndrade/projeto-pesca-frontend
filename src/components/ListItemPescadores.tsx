@@ -3,11 +3,12 @@
 
 import { Pencil, Trash } from "lucide-react";
 import Button from "./Button";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 import { useState } from "react";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import { deletePescador } from "@/actions/pescador/delete-pescador"; // <-- 1. Importa a nova Server Action
 
+// 2. A definição de Props foi simplificada. Não precisa mais de urlDelete/urlEdit.
 type PropsListItemPescadores = {
   id: number;
   nome: string;
@@ -25,24 +26,18 @@ export default function ListItemPescadores({
   pontoEmbarque,
   projetoCadastrado,
 }: PropsListItemPescadores) {
-  const router = useRouter();
   const [showModal, setShowModal] = useState(false);
 
+  // 3. A função handleDelete agora usa a Server Action, pronta para produção.
   async function handleDelete() {
-    try {
-      const res = await fetch(`http://localhost:8000/pescadores/${id}`, {
-        method: "DELETE",
-      });
+    const result = await deletePescador(id);
 
-      if (res.ok) {
-        toast.success("Pescador deletado com sucesso!");
-        setShowModal(false);
-        router.refresh();
-      } else {
-        toast.error("Erro ao deletar pescador.");
-      }
-    } catch (error) {
-      toast.error("Erro de conexão com o servidor.");
+    if (result.success) {
+      toast.success(result.message);
+      setShowModal(false);
+      // O revalidateTag na action já cuida de atualizar a página.
+    } else {
+      toast.error(result.message);
     }
   }
 
@@ -68,7 +63,10 @@ export default function ListItemPescadores({
           <h1>{projetoCadastrado}</h1>
         </div>
         <div className="w-24 flex flex-row items-center justify-center">
-          <Link href={`/pescadores/${id}/editar`}><Button icon={Pencil} className="rounded-full bg-[#6d4c41] mx-2" /></Link>
+          {/* 4. O Link de edição já estava correto com o caminho relativo */}
+          <Link href={`/pescadores/${id}/editar`}>
+            <Button icon={Pencil} className="rounded-full bg-[#6d4c41] mx-2" />
+          </Link>
           <Button
             icon={Trash}
             className="rounded-full bg-[#e53935] mx-2"
