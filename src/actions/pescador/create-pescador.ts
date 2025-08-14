@@ -34,7 +34,7 @@ export async function createPescador(
           message: "Erro de validação ao criar o pescador.",
           errors: errorDetails,
         };
-      } catch (_e) {
+      } catch {
         return { message: error.message, errors: {} };
       }
     }
