@@ -20,6 +20,8 @@ import { NewSelectInput } from "../inputs/NewSelectInput";
 import Button from "../Button";
 import { Save } from "lucide-react";
 
+// --- Tipos para o formulário e seu estado ---
+
 type Option = {
   label: string;
   value: string;
@@ -28,6 +30,15 @@ type Option = {
 type PescadorFormProps = {
   pescador?: PescadorData;
 };
+
+// Tipos para o estado da ação, correspondendo ao que a Server Action espera
+type ErrorState = Record<string, string[]>;
+type State = {
+  errors?: ErrorState;
+  message: string;
+};
+
+// --- Opções para os selects ---
 
 const optionsSexo = [
   { text: "Masculino", value: "m" },
@@ -55,8 +66,10 @@ const optionsEscolaridade = [
   { label: "Ensino superior completo", value: "superior_completo" },
 ];
 
-const initialState = {
-  errors: [],
+// --- CORREÇÃO PRINCIPAL: Estado inicial ---
+
+const initialState: State = {
+  errors: {}, // <<--- MUDANÇA 1: 'errors' agora é um objeto vazio, não um array.
   message: "",
 };
 
@@ -79,18 +92,14 @@ export default function PescadorForm({ pescador }: PescadorFormProps) {
     typeof pescador === "undefined" ? createPescador : editPescador;
   const [status, formAction] = useActionState(action, initialState);
 
-  // Wrapper para converter a action em Promise
   const handleSubmit = async (formData: FormData): Promise<void> => {
     formAction(formData);
   };
 
-  // Função para limpar o formulário
   const clearForm = () => {
     setSelectedNaturalidade(undefined);
     setSelectedColonia(undefined);
     setSelectedComunidade(undefined);
-
-    // Limpar campos do formulário
     const form = document.querySelector("form");
     if (form) {
       form.reset();
@@ -126,11 +135,12 @@ export default function PescadorForm({ pescador }: PescadorFormProps) {
   useEffect(() => {
     console.log(status);
 
-    // Limpar formulário apenas na criação (não na edição) e quando foi bem-sucedido
+    // Limpar formulário apenas na criação e quando foi bem-sucedido
     if (
       typeof pescador === "undefined" &&
       status.message &&
-      !status.errors?.length
+      // <<--- MUDANÇA 2: A forma de verificar se há erros foi ajustada.
+      (!status.errors || Object.keys(status.errors).length === 0)
     ) {
       clearForm();
     }
