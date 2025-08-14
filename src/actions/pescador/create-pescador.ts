@@ -4,8 +4,10 @@ import { revalidateTag } from "next/cache";
 import { extractDataFromPescadorForm } from "@/utils/extract-data-pescador-form";
 import fetchData from "@/lib/fetch-data";
 
+type ErrorState = Record<string, string[]>;
+
 type State = {
-  errors?: any;
+  errors?: ErrorState;
   message: string;
 };
 
@@ -23,15 +25,20 @@ export async function createPescador(
     });
 
     revalidateTag("pescadores");
+    return { message: "Sucesso! O pescador foi criado.", errors: {} };
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      try {
+        const errorDetails: ErrorState = JSON.parse(error.message);
+        return {
+          message: "Erro de validação ao criar o pescador.",
+          errors: errorDetails,
+        };
+      } catch (e) {
+        return { message: error.message, errors: {} };
+      }
+    }
 
-    return {
-      errors: {},
-      message: "Sucesso! O pescador foi criado.",
-    };
-  } catch (error: any) {
-    return {
-      errors: error.message,
-      message: "Erro ao criar o pescador.",
-    };
+    return { message: "Ocorreu um erro desconhecido.", errors: {} };
   }
 }
