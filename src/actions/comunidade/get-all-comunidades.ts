@@ -1,9 +1,15 @@
 "use server";
 
 import { ComunidadeData } from "@/types/pescadores/comunidade";
+import fetchData from "@/lib/fetch-data";
 
 export async function getAllComunidades(): Promise<ComunidadeData[]> {
-  const comunidades = await fetch("http://localhost:8000/comunidades");
-  const jsonComunidades = await comunidades.json();
-  return jsonComunidades;
+  const comunidades = await fetchData<ComunidadeData[]>({
+    url: "/comunidades/",
+    method: "GET",
+    next: {
+      tags: ["comunidades"],
+    },
+  });
+  return comunidades;
 }

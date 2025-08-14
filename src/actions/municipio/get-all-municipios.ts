@@ -1,9 +1,15 @@
 "use server";
 
 import { MunicipioData } from "@/types/pescadores/municipio";
+import fetchData from "@/lib/fetch-data";
 
 export async function getAllMunicipios(): Promise<MunicipioData[]> {
-  const municipios = await fetch("http://localhost:8000/municipios");
-  const jsonMunicipios = await municipios.json();
-  return jsonMunicipios;
+  const municipios = await fetchData<MunicipioData[]>({
+    url: "/municipios/",
+    method: "GET",
+    next: {
+      tags: ["municipios"],
+    },
+  });
+  return municipios;
 }

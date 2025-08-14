@@ -1,9 +1,12 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { EnderecoData } from "@/types/pescadores/endereco";
-import fetchData from "@/actions/fetch-data";
+import fetchData from "@/lib/fetch-data";
 
-export async function createEndereco(formData: FormData): Promise<EnderecoData> {
+export async function createEndereco(
+  formData: FormData
+): Promise<EnderecoData> {
   const data = {
     logradouro: formData.get("logradouro"),
     numero: formData.get("numero"),
@@ -13,11 +16,13 @@ export async function createEndereco(formData: FormData): Promise<EnderecoData> 
     municipio_id: formData.get("municipio_id"),
   };
 
-  const response = fetchData<EnderecoData>({
+  const response = await fetchData<EnderecoData>({
     url: "/enderecos/",
     method: "POST",
     body: JSON.stringify(data),
-  })
+  });
+
+  revalidateTag("enderecos");
 
   return response;
-};
+}

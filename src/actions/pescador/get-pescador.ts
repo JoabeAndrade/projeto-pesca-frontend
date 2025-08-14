@@ -1,8 +1,17 @@
-import { PescadorData } from "@/types/pescadores/pescador";
-import fetchData from "@/actions/fetch-data";
+"use server";
 
-export default async function getPescador(id: string | number): Promise<PescadorData> {
-  const url = `/pescadores/${id}`;
-  const pescador = await fetchData<PescadorData>({ url });
+import { PescadorData } from "@/types/pescadores/pescador";
+import fetchData from "@/lib/fetch-data";
+
+export default async function getPescador(
+  id: string | number
+): Promise<PescadorData> {
+  const pescador = await fetchData<PescadorData>({
+    url: `/pescadores/${id}/`,
+    method: "GET",
+    next: {
+      tags: [`pescador-${id}`],
+    },
+  });
   return pescador;
 }

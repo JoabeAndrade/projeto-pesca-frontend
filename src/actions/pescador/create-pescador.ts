@@ -1,32 +1,37 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { extractDataFromPescadorForm } from "@/utils/extract-data-pescador-form";
+import fetchData from "@/lib/fetch-data";
 
 type State = {
-  errors: string[];
+  errors?: any;
   message: string;
 };
 
-export async function createPescador(prevState: State, formData: FormData): Promise<State> {
-  const data = extractDataFromPescadorForm(formData)
+export async function createPescador(
+  prevState: State,
+  formData: FormData
+): Promise<State> {
+  const data = extractDataFromPescadorForm(formData);
 
-  const response = await fetch('http://localhost:8000/pescadores/', {
-    method: 'POST',
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify(data),
-  });
+  try {
+    await fetchData({
+      url: "/pescadores/",
+      method: "POST",
+      body: JSON.stringify(data),
+    });
 
-  const responseJson = await response.json();
+    revalidateTag("pescadores");
 
-  if (response.ok) {
     return {
-      errors: [],
-      message: "deu",
+      errors: {},
+      message: "Sucesso! O pescador foi criado.",
     };
-  } else {
+  } catch (error: any) {
     return {
-      errors: responseJson,
-      message: "não deu",
+      errors: error.message,
+      message: "Erro ao criar o pescador.",
     };
   }
 }

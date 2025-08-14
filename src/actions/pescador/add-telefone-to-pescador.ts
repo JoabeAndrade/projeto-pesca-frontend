@@ -1,8 +1,7 @@
 "use server";
 
-import { TelefoneData } from "@/types/pescadores/telefone";
-import fetchData from "../fetch-data";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
+import fetchData from "@/lib/fetch-data";
 
 export async function addTelefoneToPescador(formData: FormData): Promise<void> {
   const data = {
@@ -10,11 +9,12 @@ export async function addTelefoneToPescador(formData: FormData): Promise<void> {
     numero: formData.get("numero"),
   };
 
-  fetchData<TelefoneData>({
+  if (!data.pescador) throw new Error("ID do pescador não fornecido.");
+
+  await fetchData({
     url: "/telefones/",
     method: "POST",
     body: JSON.stringify(data),
   });
-
-  revalidatePath(`/pescadores/${data.pescador}/editar`);
+  revalidateTag(`pescador-${data.pescador}`);
 }

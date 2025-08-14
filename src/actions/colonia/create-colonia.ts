@@ -1,6 +1,7 @@
 "use server";
 
-import fetchData from "../fetch-data";
+import fetchData from "@/lib/fetch-data";
+import { revalidateTag } from "next/cache";
 
 export async function createColonia(formData: FormData): Promise<void> {
   const data = {
@@ -8,5 +9,11 @@ export async function createColonia(formData: FormData): Promise<void> {
     comunidade_id: formData.get("comunidade"),
   };
 
-  await fetchData({ url: '/colonias/', method: 'POST', body: JSON.stringify(data) });
+  await fetchData({
+    url: "/colonias/",
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+
+  revalidateTag("colonias");
 }

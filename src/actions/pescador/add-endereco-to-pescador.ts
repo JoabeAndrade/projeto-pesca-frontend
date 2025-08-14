@@ -1,12 +1,15 @@
 "use server";
 
-import { EnderecoData } from "@/types/pescadores/endereco";
-import fetchData from "@/actions/fetch-data";
+import { revalidateTag } from "next/cache";
+import fetchData from "@/lib/fetch-data";
 import { PescadorData } from "@/types/pescadores/pescador";
+import { EnderecoData } from "@/types/pescadores/endereco";
 
 export async function addEnderecoToPescador(formData: FormData): Promise<void> {
   const idPescador = formData.get("pescador_id");
-  const data = {
+  if (!idPescador) throw new Error("ID do pescador não fornecido");
+
+  const enderecoData = {
     logradouro: formData.get("logradouro"),
     numero: formData.get("numero"),
     bairro: formData.get("bairro"),
@@ -15,17 +18,17 @@ export async function addEnderecoToPescador(formData: FormData): Promise<void> {
     municipio_id: formData.get("municipio_id"),
   };
 
-  fetchData<EnderecoData>({
+  const novoEndereco = await fetchData<EnderecoData>({
     url: "/enderecos/",
     method: "POST",
-    body: JSON.stringify(data),
-  })
-    .then((endereco: EnderecoData) => {
-      const idEndereco = endereco.id;
-      fetchData<PescadorData>({
-        url: `/pescadores/${idPescador}`,
-        method: "PATCH",
-        body: JSON.stringify({ endereco_id: idEndereco }),
-      })
-    })
+    body: JSON.stringify(enderecoData),
+  });
+
+  await fetchData<PescadorData>({
+    url: `/pescadores/${idPescador}/`,
+    method: "PATCH",
+    body: JSON.stringify({ endereco_id: novoEndereco.id }),
+  });
+
+  revalidateTag(`pescador-${idPescador}`);
 }

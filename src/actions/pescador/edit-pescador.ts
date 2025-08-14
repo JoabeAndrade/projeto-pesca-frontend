@@ -1,33 +1,37 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
+import fetchData from "@/lib/fetch-data";
 import { extractDataFromPescadorForm } from "@/utils/extract-data-pescador-form";
 
 type State = {
-  errors: string[];
+  errors?: any;
   message: string;
 };
 
-export async function editPescador(prevState: State, formData: FormData): Promise<State> {
+export async function editPescador(
+  prevState: State,
+  formData: FormData
+): Promise<State> {
   const id = formData.get("id");
+  if (!id) return { message: "ID do pescador não fornecido.", errors: {} };
+
   const data = extractDataFromPescadorForm(formData);
 
-  const response = await fetch(`http://localhost:8000/pescadores/${id}`, {
-    method: 'PUT',
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify(data),
-  });
+  try {
+    await fetchData({
+      url: `/pescadores/${id}/`,
+      method: "PUT",
+      body: JSON.stringify(data),
+    });
 
-  const responseJson = await response.json();
-
-  if (response.ok) {
+    revalidateTag("pescadores");
+    revalidateTag(`pescador-${id}`);
+    return { message: "Pescador atualizado com sucesso.", errors: {} };
+  } catch (error: any) {
     return {
-      errors: [],
-      message: "deu",
-    };
-  } else {
-    return {
-      errors: responseJson,
-      message: "não deu",
+      message: "Erro ao atualizar o pescador.",
+      errors: JSON.parse(error.message),
     };
   }
 }

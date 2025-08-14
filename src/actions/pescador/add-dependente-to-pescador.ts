@@ -1,7 +1,7 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-import fetchData from "../fetch-data";
+import { revalidateTag } from "next/cache";
+import fetchData from "@/lib/fetch-data";
 
 export async function createDependente(formData: FormData): Promise<void> {
   const data = {
@@ -10,11 +10,12 @@ export async function createDependente(formData: FormData): Promise<void> {
     quantidade: formData.get("quantidade"),
   };
 
+  if (!data.pescador) throw new Error("ID do pescador não fornecido.");
+
   await fetchData({
     url: "/dependentes/",
     method: "POST",
     body: JSON.stringify(data),
   });
-
-  revalidatePath(`/pescadores/${data.pescador}/editar`);
+  revalidateTag(`pescador-${data.pescador}`);
 }
