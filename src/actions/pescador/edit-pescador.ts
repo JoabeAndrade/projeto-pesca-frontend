@@ -38,7 +38,7 @@ export async function editPescador(
           message: "Erro de validação ao atualizar o pescador.",
           errors: errorDetails,
         };
-      } catch (e) {
+      } catch (_e) {
         return { message: error.message, errors: {} };
       }
     }
