@@ -6,6 +6,8 @@ import PageContainer from "@/components/containers/PageContainer";
 import Button from "@/components/Button";
 import { MoveLeft } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page() {
   const comunidades = getAllComunidades();
 

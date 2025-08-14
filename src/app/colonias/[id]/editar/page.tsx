@@ -9,6 +9,8 @@ import PageTitle from "@/components/PageTitle";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page({
   params,
 }: {
@@ -26,7 +28,7 @@ export default async function Page({
       <EnderecoGenericForm
         endereco={colonia.endereco_sede}
         municipios={municipios}
-        parentData={{type: "colonia", id: colonia.id}}
+        parentData={{ type: "colonia", id: colonia.id }}
       />
       <Link href="/colonias">
         <Button icon={MoveLeft} iconPosition="left">

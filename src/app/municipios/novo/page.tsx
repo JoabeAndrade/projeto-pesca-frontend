@@ -5,6 +5,8 @@ import Link from "next/link";
 import { MoveLeft } from "lucide-react";
 import Button from "@/components/Button";
 
+export const dynamic = "force-dynamic";
+
 export default function Page() {
   return (
     <PageContainer>

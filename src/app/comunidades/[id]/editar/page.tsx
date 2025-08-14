@@ -9,6 +9,8 @@ import PageTitle from "@/components/PageTitle";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page({
   params,
 }: {
